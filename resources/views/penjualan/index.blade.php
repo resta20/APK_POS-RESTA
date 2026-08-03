@@ -4,19 +4,68 @@
 
 @section('content')
 
-@if(session('error'))
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    {{ session('error') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
+<style>
+    h1 {
+        color: #4a3728;
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
 
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
+    .btn-primary {
+        background-color: #a67c52;
+        border-color: #a67c52;
+        color: #fffdf9;
+    }
+    .btn-primary:hover {
+        background-color: #8f6a45;
+        border-color: #8f6a45;
+        color: #fffdf9;
+    }
+
+    .form-control {
+        border: 1px solid #e6dccb;
+        border-radius: 8px 0 0 8px;
+        background-color: #fffdf9;
+    }
+    .form-control:focus {
+        border-color: #a67c52;
+        box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.2);
+    }
+
+    .btn-outline-secondary {
+        border: 1px solid #e6dccb;
+        border-radius: 0 8px 8px 0;
+        color: #4a3728;
+        background-color: transparent;
+    }
+    .btn-outline-secondary:hover {
+        background-color: #a67c52;
+        border-color: #a67c52;
+        color: #fffdf9;
+    }
+
+    .table {
+        color: #4a3728;
+    }
+
+    .table thead th {
+        color: #4a3728;
+        border-bottom: 2px solid #e6dccb;
+        font-weight: 700;
+    }
+
+    .table tbody td {
+        border-bottom: 1px solid #ecdfc9;
+        vertical-align: middle;
+    }
+
+    .btn-warning {
+        color: #fffdf9;
+    }
+    .btn-warning:hover {
+        color: #fffdf9;
+    }
+</style>
 
 <h1>Halaman Penjualan</h1>
 

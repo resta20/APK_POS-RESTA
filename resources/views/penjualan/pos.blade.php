@@ -4,6 +4,77 @@
 
 @section('content')
 
+<style>
+    h4 {
+        color: #4a3728;
+        font-weight: 700;
+    }
+
+    .card {
+        border: 1px solid #e6dccb;
+        border-radius: 10px;
+    }
+
+    .form-control,
+    .form-select {
+        border: 1px solid #e6dccb;
+        border-radius: 8px;
+        background-color: #fffdf9;
+    }
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #a67c52;
+        box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.2);
+    }
+
+    .btn-outline-primary {
+        color: #4a3728;
+        border-color: #e6dccb;
+    }
+    .btn-outline-primary:hover,
+    .btn-outline-primary:active {
+        background-color: #f0e8da;
+        border-color: #a67c52;
+        color: #4a3728;
+    }
+
+    .btn-primary {
+        background-color: #a67c52;
+        border-color: #a67c52;
+    }
+    .btn-primary:hover {
+        background-color: #8f6a45;
+        border-color: #8f6a45;
+    }
+
+    .table {
+        color: #4a3728;
+    }
+    .table thead th {
+        color: #4a3728;
+        border-color: #e6dccb;
+        font-weight: 700;
+    }
+    .table td {
+        border-color: #ecdfc9;
+        vertical-align: middle;
+    }
+
+    .card-footer {
+        background-color: #f0e8da;
+        border-top: 1px solid #e6dccb;
+    }
+
+    .btn-success {
+        background-color: #a67c52;
+        border-color: #a67c52;
+    }
+    .btn-success:hover {
+        background-color: #8f6a45;
+        border-color: #8f6a45;
+    }
+</style>
+
 @if(session('error'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     {{ session('error') }}

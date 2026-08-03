@@ -43,7 +43,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return redirect()->route('admin.users')->with('success', 'User berhasil dibuat');
+        return redirect()->route('admin.users.index')->with('success', 'User berhasil dibuat');
     }
 
     public function edit(User $user)

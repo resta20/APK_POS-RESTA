@@ -54,7 +54,7 @@ class ProdukController extends Controller
         Produk::create($data);
 
         return redirect()
-            ->route('admin.produk.index')
+            ->route('produk.index')
             ->with('success', 'Product created successfully.');
     }
 
@@ -90,22 +90,18 @@ class ProdukController extends Controller
         $produk->update($data);
 
         return redirect()
-            ->route('admin.produk.index')
+            ->route('produk.index')
             ->with('success', 'Product updated successfully.');
     }
 
     public function destroy(Produk $produk)
-    {
-        $this->authorize('delete', $produk);
+{
+    $this->authorize('delete', $produk);
 
-        if ($produk->foto) {
-            Storage::disk('public')->delete($produk->foto);
-        }
+    $produk->delete();
 
-        $produk->delete();
-
-        return redirect()
-            ->route('admin.produk.index') // ← diperbaiki
-            ->with('success', 'Product deleted successfully.');
-    }
+    return redirect()
+        ->route('produk.index')
+        ->with('success', 'Product deleted successfully.');
+}
 }
