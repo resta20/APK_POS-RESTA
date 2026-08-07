@@ -20,10 +20,11 @@ Route::middleware('auth')->group(function () {
 
     // ADMIN + KASIR (tanpa prefix admin/)
     Route::middleware('role:admin,kasir')->group(function () {
-        Route::resource('produk', ProdukController::class)->except('show');
-        Route::resource('penjualan', PenjualanController::class)->except('show');
-        Route::resource('itempenjualan', ItemPenjualanController::class)->except('show');
-    });
+    Route::resource('produk', ProdukController::class)->except('show');
+    Route::resource('penjualan', PenjualanController::class)->except('show');
+    Route::get('/penjualan/{penjualan}', [PenjualanController::class, 'show'])->name('penjualan.show');
+    Route::resource('itempenjualan', ItemPenjualanController::class)->except('show');
+});
 
     // Khusus ADMIN (tetap pakai prefix admin/)
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
