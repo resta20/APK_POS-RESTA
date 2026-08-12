@@ -1,157 +1,189 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Transaksi')
+@section('title', 'Detail Penjualan')
 
 @section('content')
 
-<style>
-    h4 {
-        color: #4a3728;
-        font-weight: 700;
-    }
+    <style>
+        h1 {
+            color: #4a3728;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
 
-    .card {
-        border: 1px solid #e6dccb;
-        border-radius: 10px;
-    }
+        .btn-primary {
+            background-color: #a67c52;
+            border-color: #a67c52;
+            color: #fffdf9;
+        }
 
-    .info-label {
-        color: #9c8c78;
-        font-size: 0.8rem;
-        margin-bottom: 2px;
-    }
+        .btn-primary:hover {
+            background-color: #8f6a45;
+            border-color: #8f6a45;
+            color: #fffdf9;
+        }
 
-    .info-value {
-        color: #4a3728;
-        font-weight: 600;
-        margin-bottom: 14px;
-    }
+        .table {
+            color: #4a3728;
+        }
 
-    .badge-status {
-        display: inline-block;
-        font-size: 0.78rem;
-        font-weight: 600;
-        padding: 4px 12px;
-        border-radius: 20px;
-    }
+        .table thead th {
+            color: #4a3728;
+            border-bottom: 2px solid #e6dccb;
+            font-weight: 700;
+        }
 
-    .badge-open {
-        background-color: #f0e8da;
-        color: #8f6a45;
-    }
+        .table tbody td {
+            border-bottom: 1px solid #ecdfc9;
+            vertical-align: middle;
+        }
 
-    .badge-completed {
-        background-color: #e3f0e2;
-        color: #3d7a3a;
-    }
+        .info-card {
+            background-color: #fffdf9;
+            border: 1px solid #e6dccb;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+        }
 
-    .table {
-        color: #4a3728;
-    }
-    .table thead th {
-        color: #4a3728;
-        border-color: #e6dccb;
-        font-weight: 700;
-    }
-    .table td {
-        border-color: #ecdfc9;
-        vertical-align: middle;
-    }
+        .info-label {
+            color: #8f6a45;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
 
-    .card-footer {
-        background-color: #f0e8da;
-        border-top: 1px solid #e6dccb;
-    }
+        .info-value {
+            color: #4a3728;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
 
-    .produk-thumb {
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 1px solid #e6dccb;
-        flex-shrink: 0;
-    }
+        .badge-status {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
 
-    .btn-secondary {
-        background-color: #d8cdbb;
-        border-color: #d8cdbb;
-        color: #4a3728;
-    }
-    .btn-secondary:hover {
-        background-color: #c9bca5;
-        border-color: #c9bca5;
-        color: #4a3728;
-    }
-</style>
+        .badge-completed {
+            background-color: #e5f3e0;
+            color: #3f7d33;
+        }
 
-<h4 class="mb-3">Detail Transaksi</h4>
+        .badge-open {
+            background-color: #fdf1de;
+            color: #a67c30;
+        }
 
-<div class="card mb-3">
-    <div class="card-body">
+        .total-row td {
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-top: 2px solid #e6dccb;
+            border-bottom: none !important;
+        }
+
+        .produk-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #e6dccb;
+            background-color: #fdf6ea;
+        }
+
+        .produk-img-placeholder {
+            width: 48px;
+            height: 48px;
+            border-radius: 6px;
+            border: 1px solid #e6dccb;
+            background-color: #fdf6ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c9b691;
+            font-size: 0.7rem;
+        }
+
+        .produk-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+    </style>
+
+    <h1 class="mb-3">Detail Penjualan</h1>
+
+    <div class="info-card mb-4">
         <div class="row">
-            <div class="col-md-3 col-6">
+            <div class="col-md-3 mb-3 mb-md-0">
                 <div class="info-label">Tanggal Transaksi</div>
-                <div class="info-value">{{ $sale->created_at->translatedFormat('d-m-Y H:i:s') }}</div>
+                <div class="info-value">{{ $penjualan->created_at->translatedFormat('d-m-Y H:i:s') }}</div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="col-md-3 mb-3 mb-md-0">
                 <div class="info-label">Kasir</div>
-                <div class="info-value">{{ $sale->user->name }}</div>
+                <div class="info-value">{{ $penjualan->user->name }}</div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="col-md-3 mb-3 mb-md-0">
                 <div class="info-label">Metode Pembayaran</div>
-                <div class="info-value">{{ $sale->metode_pembayaran }}</div>
+                <div class="info-value">{{ $penjualan->metode_pembayaran }}</div>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="col-md-3">
                 <div class="info-label">Status</div>
-                <div class="info-value">
-                    <span class="badge-status {{ $sale->status === 'COMPLETED' ? 'badge-completed' : 'badge-open' }}">
-                        {{ $sale->status }}
-                    </span>
-                </div>
+                <span class="badge-status {{ $penjualan->status === 'COMPLETED' ? 'badge-completed' : 'badge-open' }}">
+                    {{ $penjualan->status }}
+                </span>
             </div>
         </div>
     </div>
-</div>
 
-<div class="card">
-    <table class="table table-bordered mb-0">
+    <h5 class="mb-3" style="color:#4a3728; font-weight:700;">Daftar Item</h5>
+
+    <table class="table">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Produk</th>
-                <th>Harga</th>
-                <th>Qty</th>
+                <th>Harga Satuan</th>
+                <th>Kuantitas</th>
                 <th>Subtotal</th>
             </tr>
         </thead>
+
         <tbody>
-            @forelse($sale->itempenjualan as $item)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="{{ asset('storage/'.$item->produk->foto) }}" class="produk-thumb" alt="{{ $item->produk->nama }}">
-                        <span>{{ $item->produk->nama }}</span>
-                    </div>
-                </td>
-                <td>Rp {{ number_format($item->produk->harga_jual) }}</td>
-                <td>{{ $item->kuantitas }}</td>
-                <td>Rp {{ number_format($item->subtotal) }}</td>
-            </tr>
+            @forelse($penjualan->itempenjualan as $item)
+                <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>
+                        <div class="produk-cell">
+                            @if ($item->produk && $item->produk->gambar)
+                                <img src="{{ Storage::url($item->produk->gambar) }}" alt="{{ $item->produk->nama }}" class="produk-img">
+                            @else
+                                <div class="produk-img-placeholder">N/A</div>
+                            @endif
+                            <span>{{ $item->produk->nama ?? '-' }}</span>
+                        </div>
+                    </td>
+                    <td>Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
+                    <td>{{ $item->kuantitas }}</td>
+                    <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                </tr>
             @empty
-            <tr>
-                <td colspan="5" class="text-center text-muted py-3">
-                    Tidak ada produk dalam transaksi ini
-                </td>
-            </tr>
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada item</td>
+                </tr>
             @endforelse
+
+            <tr class="total-row">
+                <td colspan="4" class="text-end">Total Pembayaran</td>
+                <td>Rp {{ number_format($penjualan->total_pembayaran, 0, ',', '.') }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <div class="card-footer d-flex justify-content-between align-items-center">
-        <strong>Total: Rp {{ number_format($sale->total_pembayaran) }}</strong>
-        <a href="{{ route('penjualan.index') }}" class="btn btn-secondary">Kembali</a>
-    </div>
-</div>
+    <a href="{{ route('penjualan.index') }}" class="btn btn-outline-secondary mt-3" style="border:1px solid #e6dccb; color:#4a3728;">
+        Kembali
+    </a>
 
 @endsection
