@@ -105,7 +105,7 @@
 
             </small>
         </h1>
-        <div class="row">
+        <div class="row mt-5">
             @can('viewAny', App\Models\User::class)
             <div class="col-md-12">
                 <h1 class="section-title">Today's Sales</h1>
@@ -132,7 +132,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-md-12">
                 <h1 class="section-title">Cash & Payment Status</h1>
             </div>
@@ -159,7 +159,7 @@
             </div>
         </div>
     @endcan
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-md-12">
             <h1 class="section-title">Critical Inventory Status</h1>
         </div>
@@ -221,7 +221,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row mt-5">
     <div class="col-md-12 text-center">
         <h1 class="section-title">Best Seller Products</h1>
     </div>

@@ -20,8 +20,8 @@ Route::middleware('auth')->group(function () {
 
     // ADMIN + KASIR (tanpa prefix admin/)
     Route::middleware('role:admin,kasir')->group(function () {
-        Route::resource('produk', ProdukController::class)->except('show');
-        Route::resource('penjualan', PenjualanController::class)->except('show');
+        Route::resource('produk', ProdukController::class);
+        Route::resource('penjualan', PenjualanController::class);
         Route::resource('itempenjualan', ItemPenjualanController::class)->except('show');
     });
 

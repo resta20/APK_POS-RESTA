@@ -6,8 +6,9 @@
 
 <style>
     body {
-        background-color: #FAF7F2;
         min-height: 100vh;
+        background: linear-gradient(160deg, #F5EFE4 0%, #EADFC9 50%, #DDCBA8 100%);
+        background-attachment: fixed;
     }
 
     .login-wrap {
@@ -20,8 +21,12 @@
     .login-card {
         width: 100%;
         max-width: 360px;
-        border: none;
-        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 8px 28px rgba(107, 84, 56, 0.15);
     }
 
     .login-title {
@@ -44,18 +49,20 @@
     }
 
     .login-card .form-control {
-        border: 1px solid #E5DCCE;
+        border: 1px solid rgba(229, 220, 206, 0.8);
         border-radius: 8px;
         padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.55);
     }
 
     .login-card .form-control:focus {
         border-color: #B08968;
+        background: rgba(255, 255, 255, 0.8);
         box-shadow: 0 0 0 0.2rem rgba(176, 137, 104, 0.15);
     }
 
     .btn-login {
-        background-color: #B08968;
+        background-color: rgba(176, 137, 104, 0.9);
         border: none;
         border-radius: 8px;
         color: #FFF;
@@ -105,7 +112,7 @@
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" id="email" class="form-control" autocomplete="username">
+                    <input type="email" name="email" id="email" class="form-control" autocomplete="username" placeholder="Masukkan email">
                     @error('email')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -114,7 +121,7 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="password-wrapper">
-                        <input type="password" name="password" id="password" class="form-control" autocomplete="current-password">
+                        <input type="password" name="password" id="password" class="form-control" autocomplete="current-password" placeholder="Masukkan password">
                         <button type="button" class="password-toggle" id="togglePassword" aria-label="Tampilkan password">
                             <svg id="eyeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>

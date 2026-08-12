@@ -58,6 +58,13 @@ class ProdukController extends Controller
             ->with('success', 'Product created successfully.');
     }
 
+    public function show(Produk $produk)
+    {
+        $this->authorize('viewAny', Produk::class);
+
+        return view('produk.detail', compact('produk'));
+    }
+
     public function edit(Produk $produk)
     {
         $this->authorize('update', $produk);

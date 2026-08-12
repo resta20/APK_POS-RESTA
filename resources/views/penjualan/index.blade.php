@@ -67,7 +67,7 @@
     }
 </style>
 
-<h1>Halaman Penjualan</h1>
+<h1>Penjualan</h1>
 
 <a href="{{ route('penjualan.create') }}" class="btn btn-primary mb-3">Create</a>
 
@@ -107,7 +107,7 @@
             <td>{{ $sale->metode_pembayaran }}</td>
             <td>{{ $sale->status }}</td>
             <td class="d-flex gap-1">
-                <a href="" class="btn btn-primary btn-sm">Detail</a>
+                <a href="{{ route('penjualan.show', $sale) }}" class="btn btn-primary btn-sm">Detail</a>
                 @if($sale->status === 'OPEN' && Auth::user()->role->name === 'admin')
                 <a href="{{ route('penjualan.edit', $sale) }}" class="btn btn-warning btn-sm">Edit</a>
                 <form action="{{ route('penjualan.destroy', $sale) }}" method="POST" class="d-inline">

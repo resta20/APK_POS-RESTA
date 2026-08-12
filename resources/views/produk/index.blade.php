@@ -42,43 +42,119 @@
         color: #fffdf9;
     }
 
-    .table {
-        color: #4a3728;
-    }
-
-    .table thead th {
-        color: #4a3728;
-        border-bottom: 2px solid #e6dccb;
-        font-weight: 700;
-    }
-
-    .table tbody td {
-        border-bottom: 1px solid #ecdfc9;
-        vertical-align: middle;
-    }
-
-    .table a {
-        color: #a67c52;
-    }
-
-    .produk-photo {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 1px solid #e6dccb;
-    }
-
     .btn-warning {
         color: #fffdf9;
     }
     .btn-warning:hover {
         color: #fffdf9;
     }
+
+    .btn-secondary {
+        background-color: #d8cdbb;
+        border-color: #d8cdbb;
+        color: #4a3728;
+    }
+    .btn-secondary:hover {
+        background-color: #c9bca5;
+        border-color: #c9bca5;
+        color: #4a3728;
+    }
+
+    /* grid produk ala marketplace */
+    .produk-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 16px;
+    }
+
+    .produk-card {
+        background-color: #fffdf9;
+        border: 1px solid #e6dccb;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .produk-card:hover {
+        box-shadow: 0 6px 16px rgba(74, 55, 40, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .produk-card-photo {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        background-color: #f2ead9;
+    }
+
+    .produk-card-body {
+        padding: 10px 12px 12px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .produk-card-nama {
+        color: #4a3728;
+        font-weight: 600;
+        font-size: 0.92rem;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .produk-card-harga {
+        color: #a67c52;
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 2px;
+    }
+
+    .produk-card-meta {
+        color: #9c8c78;
+        font-size: 0.78rem;
+        margin-bottom: 8px;
+    }
+
+    .produk-card-stok {
+        display: inline-block;
+        font-size: 0.72rem;
+        color: #4a3728;
+        background-color: #f2ead9;
+        border-radius: 20px;
+        padding: 2px 10px;
+        margin-bottom: 10px;
+        width: fit-content;
+    }
+
+    .produk-card-aksi {
+        margin-top: auto;
+        display: flex;
+        gap: 6px;
+    }
+
+    .produk-card-aksi form {
+        flex: 1;
+    }
+
+    .produk-card-aksi .btn {
+        width: 100%;
+        font-size: 0.8rem;
+    }
+
+    .produk-empty {
+        color: #4a3728;
+        text-align: center;
+        padding: 60px 0;
+        grid-column: 1 / -1;
+    }
 </style>
 
 
-<h1>Halaman Produk</h1>
+<h1>Produk</h1>
 
 @can('create', App\Models\Produk::class)
 <a href="{{ route('produk.create') }}" class="btn btn-primary mb-3">Create</a>
@@ -99,33 +175,21 @@
     </div>
 </form>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">User</th>
-      <th scope="col">Foto</th>
-      <th scope="col">Nama</th>
-      <th scope="col">Harga Beli</th>
-      <th scope="col">Harga Jual</th>
-      <th scope="col">Stok</th>
-      <th scope="col">Aksi</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="produk-grid">
     @forelse ($products as $product)
-    <tr>
-        <td>{{ $products->firstItem() + $loop->index }}</td>
-        <td>{{ $product->user?->name }}</td>
-        <td>
-            <img src="{{ asset('storage/'.$product->foto) }}" class="produk-photo">
-        </td>
-        <td>{{ $product->nama }}</td>
-        <td>Rp {{ number_format($product->harga_beli) }}</td>
-        <td>Rp {{ number_format($product->harga_jual) }}</td>
-        <td>{{ $product->stok }}</td>
-        <td>
-            <div class="d-flex gap-1 align-items-center">
+    <div class="produk-card">
+        <img src="{{ asset('storage/'.$product->foto) }}" class="produk-card-photo" alt="{{ $product->nama }}">
+        <div class="produk-card-body">
+            <div class="produk-card-nama">{{ $product->nama }}</div>
+            <div class="produk-card-harga">Rp {{ number_format($product->harga_jual) }}</div>
+            <div class="produk-card-meta">Beli: Rp {{ number_format($product->harga_beli) }} &middot; {{ $product->user?->name }}</div>
+            <span class="produk-card-stok">Stok: {{ $product->stok }}</span>
+
+            <div class="produk-card-aksi">
+                <a href="{{ route('produk.show', $product) }}" class="btn btn-sm btn-secondary">
+                    Detail
+                </a>
+
                 @can('update', $product)
                 <a href="{{ route('produk.edit', $product) }}" class="btn btn-sm btn-warning">
                     Edit
@@ -133,7 +197,7 @@
                 @endcan
 
                 @can('delete', $product)
-                <form action="{{ route('produk.destroy', $product) }}" method="POST" class="d-inline">
+                <form action="{{ route('produk.destroy', $product) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">
@@ -142,18 +206,17 @@
                 </form>
                 @endcan
             </div>
-        </td>
-    </tr>
+        </div>
+    </div>
     @empty
-    <tr>
-        <td colspan="8" class="text-center">
-            <h5>Data tidak tersedia.</h5>
-        </td>
-    </tr>
+    <div class="produk-empty">
+        <h5>Data tidak tersedia.</h5>
+    </div>
     @endforelse
-  </tbody>
-</table>
+</div>
 
-{{ $products->links() }}
+<div class="mt-3">
+    {{ $products->links() }}
+</div>
 
 @endsection

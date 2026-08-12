@@ -81,10 +81,12 @@
                     </li>
                 @endcan
 
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}"
-                        href="{{ route('admin.users.index') }}">Users</a>
-                </li>
+                @if(Auth::user()->role->name === 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}"
+                            href="{{ route('admin.users.index') }}">Users</a>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('penjualan*') ? 'active' : '' }}"

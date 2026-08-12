@@ -73,6 +73,81 @@
         background-color: #8f6a45;
         border-color: #8f6a45;
     }
+
+    /* grid produk ala marketplace */
+    .produk-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+    }
+
+    .produk-pick-card {
+        background-color: #fffdf9;
+        border: 1px solid #e6dccb;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    .produk-pick-card:hover {
+        box-shadow: 0 4px 12px rgba(74, 55, 40, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .produk-pick-photo-btn {
+        border: none;
+        padding: 0;
+        background: none;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+    }
+
+    .produk-pick-photo {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        background-color: #f2ead9;
+        display: block;
+    }
+
+    .produk-pick-body {
+        padding: 8px 10px 10px;
+    }
+
+    .produk-pick-nama {
+        color: #4a3728;
+        font-weight: 600;
+        font-size: 0.82rem;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .produk-pick-harga {
+        color: #a67c52;
+        font-weight: 700;
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+
+    .produk-pick-add {
+        display: flex;
+        gap: 6px;
+    }
+
+    .produk-pick-add input[type="number"] {
+        padding: 4px 6px;
+        font-size: 0.8rem;
+    }
+
+    .produk-pick-add button {
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
 </style>
 
 @if(session('error'))
@@ -100,37 +175,35 @@
                         oninput="clearTimeout(window._st); window._st = setTimeout(() => this.form.submit(), 500)">
                 </form>
 
-                @foreach($products as $product)
-                <form method="POST" action="{{ route('itempenjualan.store') }}" class="row mb-2">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <input type="hidden" name="penjualan_id" value="{{ $sale->id }}">
-
-                    <div class="col-7">
-                        <button type="button" class="btn btn-outline-primary w-100 text-start p-2"
-                            {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
-                            <div class="d-flex align-items-center gap-2">
-                                <img src="{{ asset('storage/'.$product->foto) }}"
-                                    alt="Gambar"
-                                    class="rounded-circle"
-                                    style="width:45px; height:45px; object-fit:cover;">
-                                <div>
-                                    <div class="fw-semibold">{{ $product->nama }}</div>
-                                    <small class="text-muted">Rp {{ number_format($product->harga_jual) }}</small>
-                                </div>
-                            </div>
+                <div class="produk-grid">
+                    @foreach($products as $product)
+                    <div class="produk-pick-card">
+                        <button type="button" class="produk-pick-photo-btn">
+                            <img src="{{ asset('storage/'.$product->foto) }}"
+                                alt="{{ $product->nama }}"
+                                class="produk-pick-photo">
                         </button>
+
+                        <div class="produk-pick-body">
+                            <div class="produk-pick-nama">{{ $product->nama }}</div>
+                            <div class="produk-pick-harga">Rp {{ number_format($product->harga_jual) }}</div>
+
+                            <form method="POST" action="{{ route('itempenjualan.store') }}" class="produk-pick-add">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="penjualan_id" value="{{ $sale->id }}">
+
+                                <input type="number" name="quantity" value="1" min="1"
+                                    class="form-control {{ $sale->status === 'COMPLETED' ? 'readonly' : '' }}"
+                                    style="width:50px">
+
+                                <button type="submit" class="btn btn-primary flex-fill
+                                    {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">Beli</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <input type="number" name="quantity" value="1" min="1"
-                            class="form-control {{ $sale->status === 'COMPLETED' ? 'readonly' : '' }}">
-                    </div>
-                    <div class="col-2">
-                        <button type="submit" class="btn btn-primary w-100
-                            {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">+</button>
-                    </div>
-                </form>
-                @endforeach
+                    @endforeach
+                </div>
 
             </div>
         </div>
