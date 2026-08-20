@@ -1,260 +1,157 @@
-@extends('layouts.app')
+<?php
 
-@section('title', 'Login')
+namespace App\Http\Controllers;
 
-@section('content')
+use App\Http\Requests\SearchRequest;
+use App\Models\Penjualan;
+use App\Models\Produk;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-    <style>
-        body {
-            background: #f5f1e8;
+
+class PenjualanController extends Controller
+{
+    public function index(SearchRequest $request)
+    {
+        $user = Auth::user();
+        $keyword = $request->input('search');
+
+        $sales = Penjualan::query()
+            ->when($user->role->name === 'kasir', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->whereHas('user', function ($q) use ($keyword) {
+                    $q->where('name', 'like', '%' . $keyword . '%');
+                });
+            })
+            ->latest('updated_at')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('penjualan.index', compact('sales'));
+    }
+
+    public function create(SearchRequest $request)
+    {
+        $sale = Penjualan::firstOrCreate(
+            [
+                'user_id' => Auth::id(),
+                'status'  => 'OPEN'
+            ],
+            [
+                'total_pembayaran'  => 0,
+                'metode_pembayaran' => 'CASH'
+            ]
+        );
+
+        $keyword = $request->input('search');
+
+        $products = Produk::when($keyword, function ($query) use ($keyword) {
+            $query->where('nama', 'like', '%' . $keyword . '%');
+        })->orderBy('nama')->get();
+
+        $mode = 'create';
+
+        return view('penjualan.pos', compact('sale', 'products', 'mode'));
+    }
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+        public function show(Penjualan $penjualan)
+{
+    $user = Auth::user();
+
+    if ($user->role->name === 'kasir' && $penjualan->user_id != Auth::id()) {
+        abort(403, 'Akses ditolak');
+    }
+
+    $penjualan->load(['itemPenjualan.produk', 'user']);
+
+    return view('penjualan.detail', compact('penjualan'));
+}
+
+    public function edit(Penjualan $penjualan)
+    {
+        $sale = $penjualan;
+
+        abort_if($sale->status === 'COMPLETED', 403);
+
+        $sale->load('itemPenjualan');
+        $products = Produk::orderBy('nama')->get();
+        $mode = 'edit';
+
+        return view('penjualan.pos', compact('sale', 'products', 'mode'));
+    }
+
+    // Checkout
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'metode_pembayaran' => 'required|in:CASH,QRIS',
+        ]);
+
+        $sale = Penjualan::findOrFail($id);
+        $user = Auth::user();
+
+        // Kasir hanya boleh checkout transaksi milik sendiri
+        if ($user->role->name === 'kasir' && $sale->user_id != Auth::id()) {
+            return redirect()->route('penjualan.index')
+                ->with('error', 'Akses ditolak');
         }
 
-        .page-heading {
-            color: #4a3728;
-            font-weight: 700;
+        // Keranjang tidak boleh kosong
+        if ($sale->itempenjualan()->count() === 0) {
+            return back()->with('error', 'Keranjang masih kosong');
         }
 
-        .page-heading small {
-            color: #a68a72 !important;
-            font-weight: 400;
+        // Pastikan belum di-checkout
+        if ($sale->status === 'COMPLETED') {
+            return back()->with('error', 'Transaksi sudah selesai');
         }
 
-        .section-title {
-            color: #4a3728;
-            font-weight: 700;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
+        $sale->update([
+            'status'            => 'COMPLETED',
+            'metode_pembayaran' => $request->metode_pembayaran,
+        ]);
+
+        return redirect()->route('penjualan.index')
+            ->with('success', 'Transaksi berhasil diselesaikan');
+    }
+
+    // Batal / Hapus Transaksi
+    public function destroy(Penjualan $penjualan)
+    {
+        $this->authorize('delete', $penjualan);
+
+        $sale = $penjualan;
+        $user = Auth::user();
+
+        // Kasir hanya boleh hapus transaksi milik sendiri, admin bebas
+        if ($user->role->name === 'kasir' && $sale->user_id != Auth::id()) {
+            return redirect()->route('penjualan.index')
+                ->with('error', 'Akses ditolak');
         }
 
-        .dashboard-card {
-            border: 1px solid #e6dccb;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(90, 70, 50, 0.08);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            background-color: #ffffff;
+        // Transaksi COMPLETED tidak bisa dihapus
+        if ($sale->status === 'COMPLETED') {
+            return redirect()->route('penjualan.index')
+                ->with('error', 'Transaksi yang sudah selesai tidak bisa dibatalkan');
         }
 
-        .dashboard-card .card-header {
-            background-color: #f0e8da;
-            color: #a67c52;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border-bottom: none;
-            padding: 0.9rem 1.1rem;
-        }
+        DB::transaction(function () use ($sale) {
+            foreach ($sale->itempenjualan as $item) {
+                $item->produk->increment('stok', $item->kuantitas);
+            }
+            $sale->itempenjualan()->delete();
+            $sale->delete();
+        });
 
-        .dashboard-card .card-body {
-            padding: 1.1rem;
-        }
-
-        .dashboard-card .card-title {
-            color: #4a3728;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .dashboard-table {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(90, 70, 50, 0.06);
-        }
-
-        .dashboard-table thead {
-            background-color: #f0e8da;
-        }
-
-        .dashboard-table thead th {
-            color: #a67c52;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border-bottom: none;
-        }
-
-        .dashboard-table tbody td {
-            color: #4a3728;
-            vertical-align: middle;
-        }
-
-        .dashboard-table .text-muted {
-            color: #a68a72 !important;
-        }
-
-        .pagination .page-link {
-            color: #a67c52;
-            border: 1px solid #e6dccb;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: #a67c52;
-            border-color: #a67c52;
-        }
-
-        .pagination .page-link:hover {
-            background-color: #f0e8da;
-            color: #4a3728;
-        }
-    </style>
-
-    <div class="text-center">
-        <h1 class="page-heading mt-5">
-            Ringkasan Hari Ini
-            <small class="text-muted">
-                ({{ $tanggalHariIni->translatedFormat('l, d F Y') }})
-            </small>
-        </h1>
-
-        <div class="row mt-5">
-            @can('viewAny', App\Models\User::class)
-                <div class="col-md-12">
-                    <h1 class="section-title">Today's Sales</h1>
-                </div>
-                <div class="col-md-6">
-                    <div class="card dashboard-card">
-                        <div class="card-header">
-                            Total Nilai Penjualan Hari Ini
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Rp {{ number_format($ringkasan['total_penjualan']) }}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card dashboard-card">
-                        <div class="card-header">
-                            Jumlah Transaksi Hari Ini
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $ringkasan['total_transaksi'] }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-5">
-                <div class="col-md-12">
-                    <h1 class="section-title">Cash & Payment Status</h1>
-                </div>
-                <div class="col-md-6">
-                    <div class="card dashboard-card">
-                        <div class="card-header">
-                            Total Pembayaran tunai
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ number_format($ringkasan['total_cash']) }}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card dashboard-card">
-                        <div class="card-header">
-                            Total pembayaran non-tunai
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ number_format($ringkasan['total_non_tunai']) }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endcan
-
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <h1 class="section-title">Critical Inventory Status</h1>
-            </div>
-            <div class="col-md-6">
-                <h3 class="section-title" style="font-size: 1.1rem;">Daftar produk stok rendah</h3>
-                <table class="table dashboard-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Stok</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($produkStokRendah as $index => $produk)
-                            <tr>
-                                <td>{{ $produkStokRendah->firstItem() + $index }}</td>
-                                <td>{{ $produk->nama }}</td>
-                                <td>{{ $produk->stok }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="text-muted text-center">
-                                    Seluruh produk berada dalam stok aman.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-                {{ $produkStokRendah->links() }}
-            </div>
-            <div class="col-md-6">
-                <h3 class="section-title" style="font-size: 1.1rem;">Produk habis stok</h3>
-                <table class="table dashboard-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Stok</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($produkStokHabis as $index => $produk)
-                            <tr>
-                                <td>{{ $produkStokHabis->firstItem() + $index }}</td>
-                                <td>{{ $produk->nama }}</td>
-                                <td>{{ $produk->stok }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="text-muted text-center">
-                                    Seluruh produk berada dalam stok aman.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-                {{ $produkStokRendah->links() }}
-            </div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-12 text-center">
-                <h1 class="section-title">Best Seller Products</h1>
-            </div>
-            <div class="col-md-12 text-center">
-                <table class="table dashboard-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Stok</th>
-                            <th scope="col">Unit Terjual</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($produkTerlaris as $produk)
-                            <tr>
-                                <td>{{ $produk->nama }}</td>
-                                <td>{{ $produk->stok }}</td>
-                                <td>{{ $produk->total_terjual }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="text-muted text-center">
-                                    Seluruh produk berada dalam kondisi stok aman.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-    </form>
-
-@endsection
+        return redirect()->route('penjualan.index')
+            ->with('success', 'Transaksi berhasil dibatalkan');
+    }
+}

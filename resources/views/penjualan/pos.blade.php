@@ -159,11 +159,11 @@
 
 <h4 class="mb-3">Tambah dan Edit</h4>
 
-<div class="row">
+<div class="row g-3">
 
     {{-- -------------------- PRODUK -------------------- --}}
     <div class="col-md-6">
-        <div class="card">
+        <div class="card h-100 shadow-sm">
             <div class="card-body" style="max-height:70vh; overflow:auto">
 
                 <form method="GET" action="{{ route('penjualan.create') }}">
@@ -176,7 +176,7 @@
                 </form>
 
                 <div class="produk-grid">
-                    @foreach($products as $product)
+                    @forelse($products as $product)
                     <div class="produk-pick-card">
                         <button type="button" class="produk-pick-photo-btn">
                             <img src="{{ asset('storage/'.$product->foto) }}"
@@ -185,24 +185,30 @@
                         </button>
 
                         <div class="produk-pick-body">
-                            <div class="produk-pick-nama">{{ $product->nama }}</div>
-                            <div class="produk-pick-harga">Rp {{ number_format($product->harga_jual) }}</div>
+                            <div class="produk-pick-nama" title="{{ $product->nama }}">{{ $product->nama }}</div>
+                            <div class="produk-pick-harga">Rp {{ number_format($product->harga_jual, 0, ',', '.') }}</div>
 
                             <form method="POST" action="{{ route('itempenjualan.store') }}" class="produk-pick-add">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                <input type="hidden" name="penjualan_id" value="{{ $sale->id }}">
+                                <input type="hidden" name="penjualan_id" value="{{ optional($sale)->id }}">
 
                                 <input type="number" name="quantity" value="1" min="1"
-                                    class="form-control {{ $sale->status === 'COMPLETED' ? 'readonly' : '' }}"
-                                    style="width:50px">
+                                    class="form-control {{ optional($sale)->status === 'COMPLETED' ? 'readonly' : '' }}"
+                                    style="width:50px"
+                                    {{ optional($sale)->status === 'COMPLETED' ? 'readonly' : '' }}>
 
                                 <button type="submit" class="btn btn-primary flex-fill
-                                    {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">Beli</button>
+                                    {{ optional($sale)->status === 'COMPLETED' ? 'disabled' : '' }}"
+                                    {{ optional($sale)->status === 'COMPLETED' ? 'disabled' : '' }}>Beli</button>
                             </form>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="col-12 text-center text-muted py-4">
+                        Produk tidak ditemukan
+                    </div>
+                    @endforelse
                 </div>
 
             </div>
@@ -211,63 +217,66 @@
 
     {{-- ==================== KERANJANG ==================== --}}
     <div class="col-md-6">
-        <div class="card">
-            <table class="table table-bordered mb-0">
-                <thead>
-                    <tr>
-                        <th>Produk</th>
-                        <th>Harga</th>
-                        <th>Qty</th>
-                        <th>Subtotal</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($sale->itempenjualan as $item)
-                    <tr>
-                        <td>{{ $item->produk->nama }}</td>
-                        <td>Rp {{ number_format($item->produk->harga_jual) }}</td>
-                        <td>
-                            <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
-                                @csrf @method('PUT')
-                                <input type="number" name="quantity"
-                                    value="{{ $item->kuantitas }}"
-                                    min="1"
-                                    class="form-control form-control-sm"
-                                    {{ $sale->status === 'COMPLETED' ? 'readonly' : '' }}
-                                    onchange="this.form.submit()">
-                            </form>
-                        </td>
-                        <td>Rp {{ number_format($item->subtotal) }}</td>
-                        <td>
-                            @if($sale->status !== 'COMPLETED')
-                                @can('delete', $item)
-                                <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+        <div class="card h-100 shadow-sm d-flex flex-column justify-content-between">
+            <div class="table-responsive mb-0">
+                <table class="table table-bordered mb-0">
+                    <thead>
+                        <tr>
+                            <th>Produk</th>
+                            <th>Harga</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse(optional($sale)->itempenjualan ?? [] as $item)
+                        <tr>
+                            <td>{{ optional($item->produk)->nama }}</td>
+                            <td>Rp {{ number_format(optional($item->produk)->harga_jual ?? 0, 0, ',', '.') }}</td>
+                            <td>
+                                <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
+                                    @csrf @method('PUT')
+                                    <input type="number" name="quantity"
+                                        value="{{ $item->kuantitas }}"
+                                        min="1"
+                                        class="form-control form-control-sm"
+                                        {{ $sale->status === 'COMPLETED' ? 'readonly' : '' }}
+                                        onchange="this.form.submit()">
                                 </form>
-                                @endcan
-                            @else
-                            <span class="text-muted">-</span>
-                            @endif
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5" class="text-center text-muted py-3">
-                            Keranjang masih kosong
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                            </td>
+                            <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                            <td>
+                                @if($sale->status !== 'COMPLETED')
+                                    @can('delete', $item)
+                                    <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}">
+                                        @csrf @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                    </form>
+                                    @endcan
+                                @else
+                                <span class="text-muted">-</span>
+                                @endif
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-3">
+                                Keranjang masih kosong
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
-            <div class="card-footer">
+            <div class="card-footer mt-auto">
                 <div class="mb-2">
-                    <strong>Total: Rp {{ number_format($sale->total_pembayaran) }}</strong>
+                    <strong>Total: Rp {{ number_format(optional($sale)->total_pembayaran ?? 0, 0, ',', '.') }}</strong>
                 </div>
 
                 {{-- Form Checkout --}}
+                @if($sale)
                 <form method="POST" action="{{ route('penjualan.update', $sale->id) }}"
                     onsubmit="return confirm('Yakin ingin checkout?')" class="mt-2">
                     @csrf @method('PUT')
@@ -295,6 +304,7 @@
                         </button>
                     </form>
                     @endcan
+                @endif
                 @endif
             </div>
         </div>

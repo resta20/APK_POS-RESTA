@@ -6,6 +6,7 @@ use App\Http\Requests\Produk\StoreRequest;
 use App\Http\Requests\Produk\UpdateRequest;
 use App\Http\Requests\SearchRequest;
 use App\Models\Produk;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
@@ -40,7 +41,7 @@ class ProdukController extends Controller
         $dataReq = $request->validated();
 
         $data = [
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'nama' => $dataReq['name'],
             'harga_beli' => $dataReq['purchase_price'],
             'harga_jual' => $dataReq['selling_price'],
@@ -60,7 +61,7 @@ class ProdukController extends Controller
 
     public function show(Produk $produk)
     {
-        $this->authorize('viewAny', Produk::class);
+        $this->authorize('view', $produk);
 
         return view('produk.detail', compact('produk'));
     }
@@ -79,7 +80,7 @@ class ProdukController extends Controller
         $dataReq = $request->validated();
 
         $data = [
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'nama' => $dataReq['name'],
             'harga_beli' => $dataReq['purchase_price'],
             'harga_jual' => $dataReq['selling_price'],
@@ -102,13 +103,17 @@ class ProdukController extends Controller
     }
 
     public function destroy(Produk $produk)
-{
-    $this->authorize('delete', $produk);
+    {
+        $this->authorize('delete', $produk);
 
-    $produk->delete();
+        if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
+            Storage::disk('public')->delete($produk->foto);
+        }
 
-    return redirect()
-        ->route('produk.index')
-        ->with('success', 'Product deleted successfully.');
-}
+        $produk->delete();
+
+        return redirect()
+            ->route('produk.index')
+            ->with('success', 'Product deleted successfully.');
+    }
 }
