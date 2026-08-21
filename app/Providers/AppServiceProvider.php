@@ -9,10 +9,12 @@ use App\Models\User;
 use App\Models\Penjualan;
 use App\Models\ItemPenjualan;
 use App\Models\Produk;
+use App\Models\Jenis;
 use App\Policies\DashboardPolicy;
 use App\Policies\PenjualanPolicy;
 use App\Policies\ProdukPolicy;
 use App\Policies\ItemPenjualanPolicy;
+use App\Policies\JenisPolicy;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Produk::class => ProdukPolicy::class,
         Penjualan::class => PenjualanPolicy::class,
         ItemPenjualan::class => ItemPenjualanPolicy::class,  // ← fix typo
+        Jenis::class => JenisPolicy::class,
     ];
 
     /**

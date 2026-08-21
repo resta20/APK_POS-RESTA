@@ -70,11 +70,13 @@
             color: #fffdf9;
         }
     </style>
-
+ 
+  
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Penjualan</h1>
-        <a href="{{ route('penjualan.create') }}" class="btn btn-primary">Create</a>
+       
     </div>
+<a href="{{ route('penjualan.create') }}" class="btn btn-primary">Create</a>
 
     <form action="{{ route('penjualan.index') }}" method="GET" class="mb-4">
         <div class="input-group">
