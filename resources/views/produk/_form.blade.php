@@ -29,6 +29,23 @@
     </div>
 
     <div class="col-12">
+        <label>Jenis Produk</label>
+        <select name="jenis_id"
+                class="form-control @error('jenis_id') is-invalid @enderror">
+            <option value="">-- Pilih Jenis --</option>
+            @foreach($jenisList as $jenis)
+                <option value="{{ $jenis->id }}"
+                    {{ old('jenis_id', $produk->jenis_id ?? '') == $jenis->id ? 'selected' : '' }}>
+                    {{ $jenis->nama_jenis }}
+                </option>
+            @endforeach
+        </select>
+        @error('jenis_id')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-12">
         <label>Nama Produk</label>
         <input type="text" name="name"
                class="form-control @error('name') is-invalid @enderror"

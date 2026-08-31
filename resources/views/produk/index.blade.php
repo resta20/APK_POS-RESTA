@@ -60,17 +60,17 @@
         color: #4a3728;
     }
 
-    /* grid produk ala marketplace */
+    /* grid produk ala menu kafe */
     .produk-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 18px;
     }
 
     .produk-card {
         background-color: #fffdf9;
         border: 1px solid #e6dccb;
-        border-radius: 10px;
+        border-radius: 12px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -84,39 +84,61 @@
 
     .produk-card-photo {
         width: 100%;
-        aspect-ratio: 1 / 1;
+        height: 150px;
         object-fit: cover;
         background-color: #f2ead9;
+        display: block;
     }
 
     .produk-card-body {
-        padding: 10px 12px 12px;
+        padding: 14px 16px 16px;
         display: flex;
         flex-direction: column;
         flex: 1;
     }
 
     .produk-card-nama {
+        font-family: Georgia, 'Times New Roman', serif;
         color: #4a3728;
         font-weight: 600;
-        font-size: 0.92rem;
-        margin-bottom: 4px;
+        font-size: 1.15rem;
+        margin-bottom: 2px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .produk-card-harga {
-        color: #a67c52;
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 2px;
-    }
-
     .produk-card-meta {
         color: #9c8c78;
         font-size: 0.78rem;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+    }
+
+    .produk-card-meta strong {
+        color: #8f6a45;
+    }
+
+    .produk-card-price-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        border-top: 1px dashed #e6dccb;
+        padding-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .produk-card-dots {
+        flex: 1;
+        border-bottom: 1px dotted #d8cdbb;
+        margin-bottom: 4px;
+    }
+
+    .produk-card-harga {
+        font-family: Georgia, 'Times New Roman', serif;
+        color: #a67c52;
+        font-weight: 700;
+        font-size: 1.05rem;
+        white-space: nowrap;
     }
 
     .produk-card-stok {
@@ -181,8 +203,18 @@
         <img src="{{ asset('storage/'.$product->foto) }}" class="produk-card-photo" alt="{{ $product->nama }}">
         <div class="produk-card-body">
             <div class="produk-card-nama">{{ $product->nama }}</div>
-            <div class="produk-card-harga">Rp {{ number_format($product->harga_jual) }}</div>
-            <div class="produk-card-meta">Beli: Rp {{ number_format($product->harga_beli) }} &middot; {{ $product->user?->name }}</div>
+
+            <div class="produk-card-meta">
+                Beli: Rp {{ number_format($product->harga_beli) }} &middot;
+                {{ $product->user?->name }} &middot;
+                <strong>{{ $product->jenis?->nama_jenis ?? 'Tanpa Jenis' }}</strong>
+            </div>
+
+            <div class="produk-card-price-row">
+                <span class="produk-card-dots"></span>
+                <span class="produk-card-harga">Rp {{ number_format($product->harga_jual) }}</span>
+            </div>
+
             <span class="produk-card-stok">Stok: {{ $product->stok }}</span>
 
             <div class="produk-card-aksi">
