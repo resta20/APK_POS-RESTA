@@ -24,11 +24,11 @@ class JenisPolicy
     }
 
     /**
-     * Semua user yang login boleh membuat jenis baru.
+     * Hanya admin yang boleh membuat jenis baru.
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->role->name === 'admin';
     }
 
     /**

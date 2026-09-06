@@ -156,15 +156,17 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
-                        <div class="produk-cell">
-                            @if ($item->produk && $item->produk->gambar)
-                                <img src="{{ Storage::url($item->produk->gambar) }}" alt="{{ $item->produk->nama }}" class="produk-img">
-                            @else
-                                <div class="produk-img-placeholder">N/A</div>
-                            @endif
-                            <span>{{ $item->produk->nama ?? '-' }}</span>
-                        </div>
-                    </td>
+                        <td>
+    <div class="produk-cell">
+        @if ($item->produk && $item->produk->foto)
+            <img src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->nama }}" class="produk-img">
+        @else
+            <div class="produk-img-placeholder">N/A</div>
+        @endif
+        <span>{{ $item->produk->nama ?? '-' }}</span>
+    </div>
+</td>
+                    
                     <td>Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
                     <td>{{ $item->kuantitas }}</td>
                     <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>

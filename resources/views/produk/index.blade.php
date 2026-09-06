@@ -5,10 +5,15 @@
 @section('content')
 
 <style>
-    h1 {
+    .page-header h1 {
         color: #4a3728;
         font-weight: 700;
         font-size: 1.8rem;
+        margin-bottom: 0.25rem;
+    }
+    .page-header p {
+        color: #9c8974;
+        margin-bottom: 0;
     }
 
     .btn-primary {
@@ -18,6 +23,14 @@
     .btn-primary:hover {
         background-color: #8f6a45;
         border-color: #8f6a45;
+    }
+
+    .search-card {
+        background-color: #fffdf9;
+        border: 1px solid #f0e6d6;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .form-control {
@@ -88,6 +101,17 @@
         object-fit: cover;
         background-color: #f2ead9;
         display: block;
+    }
+
+    .produk-card-photo-placeholder {
+        width: 100%;
+        height: 150px;
+        background-color: #f2ead9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c9b795;
+        font-size: 0.8rem;
     }
 
     .produk-card-body {
@@ -168,44 +192,54 @@
     }
 
     .produk-empty {
-        color: #4a3728;
+        color: #9c8974;
         text-align: center;
         padding: 60px 0;
         grid-column: 1 / -1;
     }
 </style>
 
-
-<h1>Produk</h1>
-
-@can('create', App\Models\Produk::class)
-<a href="{{ route('produk.create') }}" class="btn btn-primary mb-3">Create</a>
-@endcan
-
-<form action="{{ route('produk.index') }}" method="GET" class="mb-3">
-    <div class="input-group">
-        <input
-            type="text"
-            name="search"
-            value="{{ request('search') }}"
-            class="form-control"
-            placeholder="Cari nama produk"
-        >
-        <button class="btn btn-outline-secondary" type="submit">
-            Cari
-        </button>
+<div class="page-header d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+    <div>
+        <h1>Produk</h1>
+        
     </div>
-</form>
+    @can('create', App\Models\Produk::class)
+    <a href="{{ route('produk.create') }}" class="btn btn-primary">
+        Create
+    </a>
+    @endcan
+</div>
+
+<div class="search-card">
+    <form action="{{ route('produk.index') }}" method="GET">
+        <div class="input-group">
+            <input
+                type="text"
+                name="search"
+                value="{{ request('search') }}"
+                class="form-control"
+                placeholder="Cari nama produk"
+            >
+            <button class="btn btn-outline-secondary" type="submit">
+                Cari
+            </button>
+        </div>
+    </form>
+</div>
 
 <div class="produk-grid">
     @forelse ($products as $product)
     <div class="produk-card">
-        <img src="{{ asset('storage/'.$product->foto) }}" class="produk-card-photo" alt="{{ $product->nama }}">
+        @if($product->foto)
+            <img src="{{ asset('storage/'.$product->foto) }}" class="produk-card-photo" alt="{{ $product->nama }}">
+        @else
+            <div class="produk-card-photo-placeholder">Tidak ada foto</div>
+        @endif
         <div class="produk-card-body">
             <div class="produk-card-nama">{{ $product->nama }}</div>
 
             <div class="produk-card-meta">
-                Beli: Rp {{ number_format($product->harga_beli) }} &middot;
                 {{ $product->user?->name }} &middot;
                 <strong>{{ $product->jenis?->nama_jenis ?? 'Tanpa Jenis' }}</strong>
             </div>
@@ -242,13 +276,14 @@
     </div>
     @empty
     <div class="produk-empty">
-        <h5>Data tidak tersedia.</h5>
+        <h5 style="color:#4a3728;">Data tidak tersedia</h5>
+        <p class="mb-0">Belum ada produk yang cocok.</p>
     </div>
     @endforelse
 </div>
 
 <div class="mt-3">
-    {{ $products->links() }}
+    {{ $products->withQueryString()->links() }}
 </div>
 
 @endsection

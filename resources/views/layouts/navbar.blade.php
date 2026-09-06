@@ -83,7 +83,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('jenis*') ? 'active' : '' }}"
-                        href="{{ route('jenis.index') }}">Jenis</a>
+                        href="{{ route('jenis.index') }}">Jenis Produk</a>
                 </li>
 
                 @can('viewAny', App\Models\Produk::class)
