@@ -9,47 +9,47 @@
 
     .jenis-form-page h2 {
         font-weight: 700;
-        color: #4a3728;
+        color: #4a3f35;
         font-size: 1.4rem;
         margin-bottom: 20px;
     }
 
     .jenis-form-page label {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 500;
         margin-bottom: 6px;
     }
 
     .jenis-form-page .form-control {
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
     }
 
     .btn-simpan {
-        background: #a67c52;
+        background: #e29aa4;
         border: none;
-        color: #fffdf9;
+        color: #fdf8f0;
         font-weight: 500;
         padding: 8px 20px;
         border-radius: 4px;
     }
 
     .btn-simpan:hover {
-        background: #8f6842;
-        color: #fffdf9;
+        background: #d17d8c;
+        color: #fdf8f0;
     }
 
     .btn-batal {
         background: transparent;
-        border: 1px solid #e6dccb;
-        color: #4a3728;
+        border: 1px solid #f0d6d6;
+        color: #4a3f35;
         font-weight: 500;
         padding: 8px 20px;
         border-radius: 4px;
     }
 
     .btn-batal:hover {
-        background: #f5f1e8;
-        color: #4a3728;
+        background: #fdf8f0;
+        color: #4a3f35;
     }
 </style>
 

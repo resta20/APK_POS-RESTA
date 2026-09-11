@@ -7,7 +7,7 @@
 <style>
     body {
         min-height: 100vh;
-        background: linear-gradient(160deg, #F5EFE4 0%, #EADFC9 50%, #DDCBA8 100%);
+        background: linear-gradient(160deg, #FDF8F0 0%, #F2DCDC 50%, #E9C9C9 100%);
         background-attachment: fixed;
     }
 
@@ -26,43 +26,52 @@
         background: rgba(255, 255, 255, 0.45);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        box-shadow: 0 8px 28px rgba(107, 84, 56, 0.15);
+        box-shadow: 0 8px 28px rgba(74, 63, 53, 0.15);
     }
 
     .login-title {
+        font-family: 'Fredoka', sans-serif;
         font-weight: 600;
-        color: #3D3229;
+        font-size: 1.5rem;
+        color: #4A3F35;
         margin-bottom: 4px;
         text-align: center;
     }
 
+    .login-badge {
+        display: block;
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
     .login-subtitle {
-        color: #9C8F80;
+        color: #8A7D72;
         font-size: 0.85rem;
         margin-bottom: 24px;
     }
 
     .login-card .form-label {
-        color: #6B5D4F;
+        color: #6B5F54;
         font-size: 0.85rem;
         font-weight: 500;
     }
 
     .login-card .form-control {
-        border: 1px solid rgba(229, 220, 206, 0.8);
+        border: 1px solid rgba(240, 214, 214, 0.8);
         border-radius: 8px;
         padding: 10px 12px;
         background: rgba(255, 255, 255, 0.55);
     }
 
     .login-card .form-control:focus {
-        border-color: #B08968;
+        border-color: #E29AA4;
         background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 0 0.2rem rgba(176, 137, 104, 0.15);
+        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.15);
     }
 
     .btn-login {
-        background-color: rgba(176, 137, 104, 0.9);
+        background-color: rgba(226, 154, 164, 0.9);
         border: none;
         border-radius: 8px;
         color: #FFF;
@@ -71,7 +80,7 @@
     }
 
     .btn-login:hover {
-        background-color: #96714F;
+        background-color: #D17D8C;
         color: #FFF;
     }
 
@@ -91,21 +100,23 @@
         background: none;
         border: none;
         padding: 4px;
-        color: #9C8F80;
+        color: #8A7D72;
         cursor: pointer;
         line-height: 0;
     }
 
     .password-toggle:hover {
-        color: #6B5D4F;
+        color: #6B5F54;
     }
 </style>
 
 <div class="login-wrap">
     <div class="card login-card shadow-sm">
         <div class="card-body p-4">
-            <h5 class="login-title">LOGIN POS</h5>
-            
+            <span class="login-badge">🎀</span>
+            <h5 class="login-title">restathrift</h5>
+            <p class="login-subtitle text-center">Masuk ke akun kasir kamu</p>
+
 
             <form action="{{ route('auth') }}" method="POST">
                 @csrf

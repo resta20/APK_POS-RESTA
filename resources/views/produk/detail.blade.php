@@ -6,14 +6,14 @@
 
 <style>
     h4 {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 700;
     }
 
     .card {
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
         border-radius: 10px;
-        background-color: #fffdf9;
+        background-color: #fdf8f0;
     }
 
     .produk-detail-photo {
@@ -21,17 +21,17 @@
         aspect-ratio: 1 / 1;
         object-fit: cover;
         border-radius: 10px;
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
     }
 
     .info-label {
-        color: #9c8c78;
+        color: #8a7d72;
         font-size: 0.8rem;
         margin-bottom: 2px;
     }
 
     .info-value {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 600;
         font-size: 1rem;
         margin-bottom: 16px;
@@ -39,30 +39,30 @@
 
     .info-value.harga-jual {
         font-size: 1.4rem;
-        color: #a67c52;
+        color: #e29aa4;
     }
 
     .badge-stok {
         display: inline-block;
         font-size: 0.8rem;
-        color: #4a3728;
-        background-color: #f2ead9;
+        color: #4a3f35;
+        background-color: #fdf0f0;
         border-radius: 20px;
         padding: 4px 14px;
     }
 
     .btn-warning {
-        color: #fffdf9;
+        color: #fdf8f0;
     }
     .btn-secondary {
-        background-color: #d8cdbb;
-        border-color: #d8cdbb;
-        color: #4a3728;
+        background-color: #e9c9c9;
+        border-color: #e9c9c9;
+        color: #4a3f35;
     }
     .btn-secondary:hover {
-        background-color: #c9bca5;
-        border-color: #c9bca5;
-        color: #4a3728;
+        background-color: #dcb8b8;
+        border-color: #dcb8b8;
+        color: #4a3f35;
     }
 </style>
 

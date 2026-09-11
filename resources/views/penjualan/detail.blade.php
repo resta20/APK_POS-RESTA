@@ -2,62 +2,27 @@
 
 @section('title', 'Detail Penjualan')
 
-@section('content')
+@section('penjualan-body')
 
     <style>
-        h1 {
-            color: #4a3728;
-            font-weight: 700;
-            font-size: 1.8rem;
-        }
-
-        .btn-primary {
-            background-color: #a67c52;
-            border-color: #a67c52;
-            color: #fffdf9;
-        }
-
-        .btn-primary:hover {
-            background-color: #8f6a45;
-            border-color: #8f6a45;
-            color: #fffdf9;
-        }
-
-        .table {
-            color: #4a3728;
-        }
-
-        .table thead th {
-            color: #4a3728;
-            border-bottom: 2px solid #e6dccb;
-            font-weight: 700;
-        }
-
-        .table tbody td {
-            border-bottom: 1px solid #ecdfc9;
-            vertical-align: middle;
-        }
+        .table { color: #4a3f35; }
+        .table thead th { color: #4a3f35; border-bottom: 2px solid #f0d6d6; font-weight: 700; }
+        .table tbody td { border-bottom: 1px solid #f2dcdc; vertical-align: middle; }
 
         .info-card {
-            background-color: #fffdf9;
-            border: 1px solid #e6dccb;
+            background-color: #fdf8f0;
+            border: 1px solid #f0d6d6;
             border-radius: 8px;
             padding: 1.25rem 1.5rem;
         }
-
         .info-label {
-            color: #8f6a45;
+            color: #d17d8c;
             font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
-
-        .info-value {
-            color: #4a3728;
-            font-weight: 600;
-            font-size: 1.05rem;
-        }
+        .info-value { color: #4a3f35; font-weight: 600; font-size: 1.05rem; }
 
         .badge-status {
             display: inline-block;
@@ -66,54 +31,28 @@
             font-weight: 600;
             font-size: 0.85rem;
         }
-
-        .badge-completed {
-            background-color: #e5f3e0;
-            color: #3f7d33;
-        }
-
-        .badge-open {
-            background-color: #fdf1de;
-            color: #a67c30;
-        }
+        .badge-completed { background-color: #e8f0e3; color: #5f7a52; }
+        .badge-open { background-color: #fbeed9; color: #a3792f; }
 
         .total-row td {
             font-weight: 700;
             font-size: 1.1rem;
-            border-top: 2px solid #e6dccb;
+            border-top: 2px solid #f0d6d6;
             border-bottom: none !important;
         }
 
         .produk-img {
-            width: 48px;
-            height: 48px;
-            object-fit: cover;
-            border-radius: 6px;
-            border: 1px solid #e6dccb;
-            background-color: #fdf6ea;
+            width: 48px; height: 48px; object-fit: cover;
+            border-radius: 6px; border: 1px solid #f0d6d6; background-color: #fdf3f3;
         }
-
         .produk-img-placeholder {
-            width: 48px;
-            height: 48px;
-            border-radius: 6px;
-            border: 1px solid #e6dccb;
-            background-color: #fdf6ea;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #c9b691;
-            font-size: 0.7rem;
+            width: 48px; height: 48px; border-radius: 6px;
+            border: 1px solid #f0d6d6; background-color: #fdf3f3;
+            display: flex; align-items: center; justify-content: center;
+            color: #dcb8b8; font-size: 0.7rem;
         }
-
-        .produk-cell {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+        .produk-cell { display: flex; align-items: center; gap: 0.75rem; }
     </style>
-
-    <h1 class="mb-3">Detail Penjualan</h1>
 
     <div class="info-card mb-4">
         <div class="row">
@@ -136,9 +75,23 @@
                 </span>
             </div>
         </div>
+
+        @if ($penjualan->metode_pembayaran === 'CASH' && !is_null($penjualan->uang_diterima))
+            <hr style="border-color:#f0d6d6;">
+            <div class="row">
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <div class="info-label">Uang Diterima</div>
+                    <div class="info-value">Rp {{ number_format($penjualan->uang_diterima, 0, ',', '.') }}</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="info-label">Kembalian</div>
+                    <div class="info-value">Rp {{ number_format($penjualan->kembalian, 0, ',', '.') }}</div>
+                </div>
+            </div>
+        @endif
     </div>
 
-    <h5 class="mb-3" style="color:#4a3728; font-weight:700;">Daftar Item</h5>
+    <h5 class="mb-3" style="color:#4a3f35; font-weight:700;">Daftar Item</h5>
 
     <table class="table">
         <thead>
@@ -150,23 +103,20 @@
                 <th>Subtotal</th>
             </tr>
         </thead>
-
         <tbody>
             @forelse($penjualan->itempenjualan as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
-                        <td>
-    <div class="produk-cell">
-        @if ($item->produk && $item->produk->foto)
-            <img src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->nama }}" class="produk-img">
-        @else
-            <div class="produk-img-placeholder">N/A</div>
-        @endif
-        <span>{{ $item->produk->nama ?? '-' }}</span>
-    </div>
-</td>
-                    
+                        <div class="produk-cell">
+                            @if ($item->produk && $item->produk->foto)
+                                <img src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->nama }}" class="produk-img">
+                            @else
+                                <div class="produk-img-placeholder">N/A</div>
+                            @endif
+                            <span>{{ $item->produk->nama ?? '-' }}</span>
+                        </div>
+                    </td>
                     <td>Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
                     <td>{{ $item->kuantitas }}</td>
                     <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
@@ -184,7 +134,15 @@
         </tbody>
     </table>
 
-    <a href="{{ route('penjualan.index') }}" class="btn btn-outline-secondary mt-3" style="border:1px solid #e6dccb; color:#4a3728;">
+@endsection
+
+@section('content')
+
+    <h1 class="mb-3" style="color:#4a3f35; font-weight:700;">Detail Penjualan</h1>
+
+    @yield('penjualan-body')
+
+    <a href="{{ route('penjualan.index') }}" class="btn btn-outline-secondary mt-3" style="border:1px solid #f0d6d6; color:#4a3f35;">
         Kembali
     </a>
 

@@ -6,53 +6,53 @@
 
 <style>
     .page-header h1 {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 700;
         font-size: 1.8rem;
         margin-bottom: 0.25rem;
     }
     .page-header p {
-        color: #9c8974;
+        color: #8a7d72;
         margin-bottom: 0;
     }
 
     .btn-primary {
-        background-color: #a67c52;
-        border-color: #a67c52;
+        background-color: #e29aa4;
+        border-color: #e29aa4;
     }
     .btn-primary:hover {
-        background-color: #8f6a45;
-        border-color: #8f6a45;
+        background-color: #d17d8c;
+        border-color: #d17d8c;
     }
 
     .data-card {
         background-color: #fff;
-        border: 1px solid #f0e6d6;
+        border: 1px solid #faeaea;
         border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(74, 55, 40, 0.06);
+        box-shadow: 0 2px 10px rgba(74, 63, 53, 0.06);
         overflow: hidden;
     }
 
     .table {
-        color: #4a3728;
+        color: #4a3f35;
         margin-bottom: 0;
     }
 
     .table thead th {
-        background-color: #faf5eb;
-        color: #4a3728;
-        border-bottom: 2px solid #e6dccb;
+        background-color: #fbeff0;
+        color: #4a3f35;
+        border-bottom: 2px solid #f0d6d6;
         font-weight: 700;
         padding-top: 0.9rem;
         padding-bottom: 0.9rem;
     }
 
     .table tbody tr:hover {
-        background-color: #fbf7ef;
+        background-color: #fdf5f5;
     }
 
     .table tbody td {
-        border-bottom: 1px solid #ecdfc9;
+        border-bottom: 1px solid #f2dcdc;
         vertical-align: middle;
         padding-top: 0.8rem;
         padding-bottom: 0.8rem;
@@ -62,18 +62,18 @@
     .table td:last-child, .table th:last-child { padding-right: 1.25rem; }
 
     .table a {
-        color: #a67c52;
+        color: #e29aa4;
     }
 
     .btn-warning {
-        background-color: #d9a441;
-        border-color: #d9a441;
-        color: #fffdf9;
+        background-color: #e0ab4f;
+        border-color: #e0ab4f;
+        color: #fdf8f0;
     }
     .btn-warning:hover {
-        background-color: #c4922f;
-        border-color: #c4922f;
-        color: #fffdf9;
+        background-color: #b8863a;
+        border-color: #b8863a;
+        color: #fdf8f0;
     }
 
     .creator-badge {
@@ -85,8 +85,8 @@
         width: 26px;
         height: 26px;
         border-radius: 50%;
-        background-color: #e6dccb;
-        color: #8f6a45;
+        background-color: #f0d6d6;
+        color: #d17d8c;
         font-size: 0.75rem;
         font-weight: 700;
         display: inline-flex;
@@ -97,7 +97,7 @@
     .empty-state {
         padding: 2.5rem 1rem;
         text-align: center;
-        color: #9c8974;
+        color: #8a7d72;
     }
 </style>
 
@@ -157,7 +157,7 @@ Create
         <tr>
             <td colspan="4">
                 <div class="empty-state">
-                    <h5 class="mb-1" style="color:#4a3728;">Data tidak tersedia</h5>
+                    <h5 class="mb-1" style="color:#4a3f35;">Data tidak tersedia</h5>
                     <p class="mb-0">Belum ada jenis produk yang ditambahkan.</p>
                 </div>
             </td>

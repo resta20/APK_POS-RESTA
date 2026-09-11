@@ -15,7 +15,9 @@ class Penjualan extends Model
         'user_id',
         'total_pembayaran',
         'metode_pembayaran',
-        'status'
+        'status',
+        'uang_diterima',
+        'kembalian'
     ];
 
     public function user()

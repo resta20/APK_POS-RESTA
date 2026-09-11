@@ -6,72 +6,72 @@
 
 <style>
     h4 {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 700;
     }
 
     .card {
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
         border-radius: 10px;
     }
 
     .form-control,
     .form-select {
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
         border-radius: 8px;
-        background-color: #fffdf9;
+        background-color: #fdf8f0;
     }
     .form-control:focus,
     .form-select:focus {
-        border-color: #a67c52;
-        box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.2);
+        border-color: #e29aa4;
+        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.2);
     }
 
     .btn-outline-primary {
-        color: #4a3728;
-        border-color: #e6dccb;
+        color: #4a3f35;
+        border-color: #f0d6d6;
     }
     .btn-outline-primary:hover,
     .btn-outline-primary:active {
-        background-color: #f0e8da;
-        border-color: #a67c52;
-        color: #4a3728;
+        background-color: #faeaea;
+        border-color: #e29aa4;
+        color: #4a3f35;
     }
 
     .btn-primary {
-        background-color: #a67c52;
-        border-color: #a67c52;
+        background-color: #e29aa4;
+        border-color: #e29aa4;
     }
     .btn-primary:hover {
-        background-color: #8f6a45;
-        border-color: #8f6a45;
+        background-color: #d17d8c;
+        border-color: #d17d8c;
     }
 
     .table {
-        color: #4a3728;
+        color: #4a3f35;
     }
     .table thead th {
-        color: #4a3728;
-        border-color: #e6dccb;
+        color: #4a3f35;
+        border-color: #f0d6d6;
         font-weight: 700;
     }
     .table td {
-        border-color: #ecdfc9;
+        border-color: #f2dcdc;
         vertical-align: middle;
     }
 
     .card-footer {
-        background-color: #f0e8da;
-        border-top: 1px solid #e6dccb;
+        background-color: #faeaea;
+        border-top: 1px solid #f0d6d6;
     }
 
     .btn-success {
-        background-color: #a67c52;
-        border-color: #a67c52;
+        background-color: #e29aa4;
+        border-color: #e29aa4;
     }
     .btn-success:hover {
-        background-color: #8f6a45;
-        border-color: #8f6a45;
+        background-color: #d17d8c;
+        border-color: #d17d8c;
     }
 
     /* grid produk ala marketplace */
@@ -82,8 +82,8 @@
     }
 
     .produk-pick-card {
-        background-color: #fffdf9;
-        border: 1px solid #e6dccb;
+        background-color: #fdf8f0;
+        border: 1px solid #f0d6d6;
         border-radius: 10px;
         overflow: hidden;
         display: flex;
@@ -92,7 +92,7 @@
     }
 
     .produk-pick-card:hover {
-        box-shadow: 0 4px 12px rgba(74, 55, 40, 0.12);
+        box-shadow: 0 4px 12px rgba(74, 63, 53, 0.12);
         transform: translateY(-2px);
     }
 
@@ -109,7 +109,7 @@
         width: 100%;
         aspect-ratio: 1 / 1;
         object-fit: cover;
-        background-color: #f2ead9;
+        background-color: #fdf0f0;
         display: block;
     }
 
@@ -118,7 +118,7 @@
     }
 
     .produk-pick-nama {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 600;
         font-size: 0.82rem;
         margin-bottom: 2px;
@@ -128,7 +128,7 @@
     }
 
     .produk-pick-harga {
-        color: #a67c52;
+        color: #e29aa4;
         font-weight: 700;
         font-size: 0.85rem;
         margin-bottom: 8px;
@@ -277,21 +277,92 @@
 
                 {{-- Form Checkout --}}
                 @if($sale)
-                <form method="POST" action="{{ route('penjualan.update', $sale->id) }}"
-                    onsubmit="return confirm('Yakin ingin checkout?')" class="mt-2">
+                <form id="checkoutForm" method="POST" action="{{ route('penjualan.update', $sale->id) }}"
+                    onsubmit="return validateCheckout()" class="mt-2">
                     @csrf @method('PUT')
-                    <select name="metode_pembayaran" class="form-select mb-2"
+
+                    <select name="metode_pembayaran" id="metodePembayaran" class="form-select mb-2"
+                        onchange="togglePaymentMethod()"
                         {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
                         <option value="">Pilih Pembayaran</option>
                         <option value="CASH" {{ $sale->metode_pembayaran === 'CASH' ? 'selected' : '' }}>Cash</option>
                         <option value="QRIS" {{ $sale->metode_pembayaran === 'QRIS' ? 'selected' : '' }}>QRIS</option>
                     </select>
+
+                    {{-- Panel CASH --}}
+                    <div id="cashPanel" class="mb-2" style="display:none;">
+                        <label class="form-label small mb-1">Uang Diterima</label>
+                        <input type="number" name="uang_diterima" id="uangDiterima"
+                            class="form-control mb-2" min="{{ $sale->total_pembayaran }}"
+                            placeholder="Masukkan nominal uang diterima"
+                            oninput="hitungKembalian()"
+                            value="{{ old('uang_diterima', $sale->uang_diterima) }}">
+
+                        <div class="d-flex justify-content-between">
+                            <span>Kembalian:</span>
+                            <strong id="kembalianText">Rp 0</strong>
+                        </div>
+                    </div>
+
+                   {{-- Panel QRIS --}}
+<div id="qrisPanel" class="mb-2 text-center" style="display:none;">
+    <p class="fw-semibold mb-2" style="color:#4a3f35;">Scan untuk membayar</p>
+
+    <img src="{{ asset('images/qris-dana.png') }}" alt="QRIS DANA"
+        style="max-width:220px; width:100%; border:1px solid #f0d6d6; border-radius:8px;">
+
+    <p class="fw-bold mt-2 mb-1" style="color:#e29aa4; font-size:1.1rem;">
+        Rp {{ number_format($sale->total_pembayaran, 0, ',', '.') }}
+    </p>
+</div>
+
                     <button type="submit"
                         class="btn btn-success w-100"
                         {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}>
                         Checkout
                     </button>
                 </form>
+
+                <script>
+                    const totalPembayaran = {{ $sale->total_pembayaran }};
+
+                    function togglePaymentMethod() {
+                        const metode = document.getElementById('metodePembayaran').value;
+                        document.getElementById('cashPanel').style.display = metode === 'CASH' ? 'block' : 'none';
+                        document.getElementById('qrisPanel').style.display = metode === 'QRIS' ? 'block' : 'none';
+                    }
+
+                    function hitungKembalian() {
+                        const diterima = parseFloat(document.getElementById('uangDiterima').value) || 0;
+                        const kembalian = diterima - totalPembayaran;
+                        document.getElementById('kembalianText').innerText =
+                            'Rp ' + (kembalian > 0 ? kembalian : 0).toLocaleString('id-ID');
+                    }
+
+                    function validateCheckout() {
+                        const metode = document.getElementById('metodePembayaran').value;
+
+                        if (metode === '') {
+                            alert('Pilih metode pembayaran terlebih dahulu');
+                            return false;
+                        }
+
+                        if (metode === 'CASH') {
+                            const diterima = parseFloat(document.getElementById('uangDiterima').value) || 0;
+                            if (diterima < totalPembayaran) {
+                                alert('Uang diterima tidak boleh kurang dari total pembayaran');
+                                return false;
+                            }
+                        }
+
+                        return confirm('Yakin ingin checkout?');
+                    }
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        togglePaymentMethod();
+                        hitungKembalian();
+                    });
+                </script>
 
                 {{-- Form Batal Transaksi - hanya admin --}}
                 @if($sale->status !== 'COMPLETED')

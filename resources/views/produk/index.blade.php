@@ -6,74 +6,74 @@
 
 <style>
     .page-header h1 {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 700;
         font-size: 1.8rem;
         margin-bottom: 0.25rem;
     }
     .page-header p {
-        color: #9c8974;
+        color: #8a7d72;
         margin-bottom: 0;
     }
 
     .btn-primary {
-        background-color: #a67c52;
-        border-color: #a67c52;
+        background-color: #e29aa4;
+        border-color: #e29aa4;
     }
     .btn-primary:hover {
-        background-color: #8f6a45;
-        border-color: #8f6a45;
+        background-color: #d17d8c;
+        border-color: #d17d8c;
     }
 
     .search-card {
-        background-color: #fffdf9;
-        border: 1px solid #f0e6d6;
+        background-color: #fdf8f0;
+        border: 1px solid #faeaea;
         border-radius: 10px;
         padding: 0.75rem 1rem;
         margin-bottom: 1.5rem;
     }
 
     .form-control {
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
         border-radius: 8px 0 0 8px;
-        background-color: #fffdf9;
+        background-color: #fdf8f0;
     }
     .form-control:focus {
-        border-color: #a67c52;
-        box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.2);
+        border-color: #e29aa4;
+        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.2);
     }
 
     .btn-outline-secondary {
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
         border-radius: 0 8px 8px 0;
-        color: #4a3728;
+        color: #4a3f35;
         background-color: transparent;
     }
     .btn-outline-secondary:hover {
-        background-color: #a67c52;
-        border-color: #a67c52;
-        color: #fffdf9;
+        background-color: #e29aa4;
+        border-color: #e29aa4;
+        color: #fdf8f0;
     }
 
     .btn-warning {
-        color: #fffdf9;
+        color: #fdf8f0;
     }
     .btn-warning:hover {
-        color: #fffdf9;
+        color: #fdf8f0;
     }
 
     .btn-secondary {
-        background-color: #d8cdbb;
-        border-color: #d8cdbb;
-        color: #4a3728;
+        background-color: #e9c9c9;
+        border-color: #e9c9c9;
+        color: #4a3f35;
     }
     .btn-secondary:hover {
-        background-color: #c9bca5;
-        border-color: #c9bca5;
-        color: #4a3728;
+        background-color: #dcb8b8;
+        border-color: #dcb8b8;
+        color: #4a3f35;
     }
 
-    /* grid produk ala menu kafe */
+    /* grid produk ala rak thrift */
     .produk-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -81,8 +81,8 @@
     }
 
     .produk-card {
-        background-color: #fffdf9;
-        border: 1px solid #e6dccb;
+        background-color: #fdf8f0;
+        border: 1px solid #f0d6d6;
         border-radius: 12px;
         overflow: hidden;
         display: flex;
@@ -91,7 +91,7 @@
     }
 
     .produk-card:hover {
-        box-shadow: 0 6px 16px rgba(74, 55, 40, 0.12);
+        box-shadow: 0 6px 16px rgba(74, 63, 53, 0.12);
         transform: translateY(-2px);
     }
 
@@ -99,18 +99,18 @@
         width: 100%;
         height: 150px;
         object-fit: cover;
-        background-color: #f2ead9;
+        background-color: #fdf0f0;
         display: block;
     }
 
     .produk-card-photo-placeholder {
         width: 100%;
         height: 150px;
-        background-color: #f2ead9;
+        background-color: #fdf0f0;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #c9b795;
+        color: #dcb8b8;
         font-size: 0.8rem;
     }
 
@@ -122,8 +122,8 @@
     }
 
     .produk-card-nama {
-        font-family: Georgia, 'Times New Roman', serif;
-        color: #4a3728;
+        font-family: 'Fredoka', sans-serif;
+        color: #4a3f35;
         font-weight: 600;
         font-size: 1.15rem;
         margin-bottom: 2px;
@@ -133,33 +133,33 @@
     }
 
     .produk-card-meta {
-        color: #9c8c78;
+        color: #8a7d72;
         font-size: 0.78rem;
         margin-bottom: 10px;
     }
 
     .produk-card-meta strong {
-        color: #8f6a45;
+        color: #d17d8c;
     }
 
     .produk-card-price-row {
         display: flex;
         align-items: baseline;
         gap: 6px;
-        border-top: 1px dashed #e6dccb;
+        border-top: 1px dashed #f0d6d6;
         padding-top: 10px;
         margin-bottom: 10px;
     }
 
     .produk-card-dots {
         flex: 1;
-        border-bottom: 1px dotted #d8cdbb;
+        border-bottom: 1px dotted #e9c9c9;
         margin-bottom: 4px;
     }
 
     .produk-card-harga {
-        font-family: Georgia, 'Times New Roman', serif;
-        color: #a67c52;
+        font-family: 'Fredoka', sans-serif;
+        color: #e29aa4;
         font-weight: 700;
         font-size: 1.05rem;
         white-space: nowrap;
@@ -168,8 +168,8 @@
     .produk-card-stok {
         display: inline-block;
         font-size: 0.72rem;
-        color: #4a3728;
-        background-color: #f2ead9;
+        color: #4a3f35;
+        background-color: #fdf0f0;
         border-radius: 20px;
         padding: 2px 10px;
         margin-bottom: 10px;
@@ -192,7 +192,7 @@
     }
 
     .produk-empty {
-        color: #9c8974;
+        color: #8a7d72;
         text-align: center;
         padding: 60px 0;
         grid-column: 1 / -1;
@@ -276,7 +276,7 @@
     </div>
     @empty
     <div class="produk-empty">
-        <h5 style="color:#4a3728;">Data tidak tersedia</h5>
+        <h5 style="color:#4a3f35;">Data tidak tersedia</h5>
         <p class="mb-0">Belum ada produk yang cocok.</p>
     </div>
     @endforelse

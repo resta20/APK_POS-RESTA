@@ -6,38 +6,38 @@
 
     <style>
         body {
-            background: #f5f1e8;
+            background: #fdf8f0;
         }
 
         .page-heading {
-            color: #4a3728;
+            color: #4a3f35;
             font-weight: 700;
         }
 
         .page-heading small {
-            color: #a68a72 !important;
+            color: #8a7d72 !important;
             font-weight: 400;
         }
 
         .section-title {
-            color: #4a3728;
+            color: #4a3f35;
             font-weight: 700;
             font-size: 1.4rem;
             margin-bottom: 1rem;
         }
 
         .dashboard-card {
-            border: 1px solid #e6dccb;
+            border: 1px solid #f0d6d6;
             border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(90, 70, 50, 0.08);
+            box-shadow: 0 10px 25px rgba(74, 63, 53, 0.08);
             margin-bottom: 1.5rem;
             overflow: hidden;
             background-color: #ffffff;
         }
 
         .dashboard-card .card-header {
-            background-color: #f0e8da;
-            color: #a67c52;
+            background-color: #faeaea;
+            color: #e29aa4;
             font-weight: 600;
             font-size: 0.85rem;
             border-bottom: none;
@@ -49,7 +49,7 @@
         }
 
         .dashboard-card .card-title {
-            color: #4a3728;
+            color: #4a3f35;
             font-weight: 700;
             margin: 0;
         }
@@ -57,42 +57,42 @@
         .dashboard-table {
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(90, 70, 50, 0.06);
+            box-shadow: 0 10px 25px rgba(74, 63, 53, 0.06);
         }
 
         .dashboard-table thead {
-            background-color: #f0e8da;
+            background-color: #faeaea;
         }
 
         .dashboard-table thead th {
-            color: #a67c52;
+            color: #e29aa4;
             font-weight: 600;
             font-size: 0.85rem;
             border-bottom: none;
         }
 
         .dashboard-table tbody td {
-            color: #4a3728;
+            color: #4a3f35;
             vertical-align: middle;
         }
 
         .dashboard-table .text-muted {
-            color: #a68a72 !important;
+            color: #8a7d72 !important;
         }
 
         .pagination .page-link {
-            color: #a67c52;
-            border: 1px solid #e6dccb;
+            color: #e29aa4;
+            border: 1px solid #f0d6d6;
         }
 
         .pagination .page-item.active .page-link {
-            background-color: #a67c52;
-            border-color: #a67c52;
+            background-color: #e29aa4;
+            border-color: #e29aa4;
         }
 
         .pagination .page-link:hover {
-            background-color: #f0e8da;
-            color: #4a3728;
+            background-color: #faeaea;
+            color: #4a3f35;
         }
     </style>
 

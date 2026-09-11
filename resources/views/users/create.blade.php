@@ -6,47 +6,47 @@
 
 <style>
     h4 {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 700;
     }
 
     label {
-        color: #4a3728;
+        color: #4a3f35;
         font-weight: 600;
         font-size: 0.9rem;
     }
 
     .form-control,
     .form-select {
-        border: 1px solid #e6dccb;
+        border: 1px solid #f0d6d6;
         border-radius: 8px;
-        background-color: #fffdf9;
+        background-color: #fdf8f0;
     }
 
     .form-control:focus,
     .form-select:focus {
-        border-color: #a67c52;
-        box-shadow: 0 0 0 0.2rem rgba(166, 124, 82, 0.2);
+        border-color: #e29aa4;
+        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.2);
     }
 
     .btn-success {
-        background-color: #a67c52;
-        border-color: #a67c52;
+        background-color: #e29aa4;
+        border-color: #e29aa4;
     }
     .btn-success:hover {
-        background-color: #8f6a45;
-        border-color: #8f6a45;
+        background-color: #d17d8c;
+        border-color: #d17d8c;
     }
 
     .btn-secondary {
-        background-color: #d8cdbb;
-        border-color: #d8cdbb;
-        color: #4a3728;
+        background-color: #e9c9c9;
+        border-color: #e9c9c9;
+        color: #4a3f35;
     }
     .btn-secondary:hover {
-        background-color: #c9bca5;
-        border-color: #c9bca5;
-        color: #4a3728;
+        background-color: #dcb8b8;
+        border-color: #dcb8b8;
+        color: #4a3f35;
     }
 </style>
 
