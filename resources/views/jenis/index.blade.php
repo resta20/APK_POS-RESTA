@@ -142,10 +142,12 @@ Create
                     </a>
                     @endcan
                     @can('delete', $item)
-                    <form action="{{ route('jenis.destroy', $item->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('jenis.destroy', $item->id) }}" method="POST" class="d-inline js-confirm-delete"
+                        data-confirm-title="Hapus jenis ini?"
+                        data-confirm-text="Jenis '{{ $item->nama_jenis }}' akan dihapus.">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">
+                        <button class="btn btn-sm btn-danger">
                             Hapus
                         </button>
                     </form>

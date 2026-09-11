@@ -108,17 +108,30 @@ class ProdukController extends Controller
     }
 
     public function destroy(Produk $produk)
-    {
-        $this->authorize('delete', $produk);
+{
+    $this->authorize('delete', $produk);
 
-        if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
-            Storage::disk('public')->delete($produk->foto);
-        }
+    
+    $sudahTerjual = $produk->itemPenjualan()->exists();
 
-        $produk->delete();
+    if ($sudahTerjual) {
+        
+        $produk->update(['is_active' => false]);
 
         return redirect()
             ->route('produk.index')
-            ->with('success', 'Product deleted successfully.');
+            ->with('success', 'Produk memiliki riwayat penjualan sehingga dinonaktifkan');
     }
+
+    
+    if ($produk->foto && Storage::disk('public')->exists($produk->foto)) {
+        Storage::disk('public')->delete($produk->foto);
+    }
+
+    $produk->delete();
+
+    return redirect()
+        ->route('produk.index')
+        ->with('success', 'Product deleted successfully.');
+}
 }

@@ -263,10 +263,12 @@
                 @endcan
 
                 @can('delete', $product)
-                <form action="{{ route('produk.destroy', $product) }}" method="POST">
+                <form action="{{ route('produk.destroy', $product) }}" method="POST" class="js-confirm-delete"
+                    data-confirm-title="Hapus produk ini?"
+                    data-confirm-text="{{ $product->nama }} akan dihapus dari daftar produk.">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin akan menghapus produk ini?')">
+                    <button type="submit" class="btn btn-sm btn-danger">
                         Hapus
                     </button>
                 </form>

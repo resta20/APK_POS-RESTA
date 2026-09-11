@@ -57,6 +57,13 @@ class JenisController extends Controller
 
     public function destroy(Jenis $jenis)
     {
+        $jumlahProduk = $jenis->produk()->count();
+
+        if ($jumlahProduk > 0) {
+            return redirect()->route('jenis.index')
+                ->with('error', 'Jenis tidak bisa dihapus karena masih memiliki ' . $jumlahProduk . ' produk terkait. Pindahkan atau hapus produk tersebut terlebih dahulu.');
+        }
+
         $jenis->delete();
 
         return redirect()->route('jenis.index')->with('success', 'Jenis berhasil dihapus.');

@@ -174,11 +174,12 @@
                                 </button>
                                 @if ($sale->status === 'OPEN' && Auth::check() && optional(Auth::user()->role)->name === 'admin')
                                     <a href="{{ route('penjualan.edit', $sale) }}" class="btn btn-warning btn-sm">Edit</a>
-                                    <form action="{{ route('penjualan.destroy', $sale) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('penjualan.destroy', $sale) }}" method="POST" class="d-inline js-confirm-delete"
+                                        data-confirm-title="Batalkan transaksi ini?"
+                                        data-confirm-text="Transaksi ini akan dihapus dan stok produk akan dikembalikan.">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"
-                                            onclick="return confirm('Apakah anda yakin akan menghapus penjualan ini?')">
+                                        <button type="submit" class="btn btn-danger btn-sm">
                                             Hapus
                                         </button>
                                     </form>
