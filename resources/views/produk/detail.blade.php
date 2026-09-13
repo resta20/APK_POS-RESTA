@@ -11,8 +11,8 @@
     }
 
     .card {
-        border: 1px solid #f0d6d6;
-        border-radius: 10px;
+        border: 1px solid #e5dcd3;
+        border-radius: 8px;
         background-color: #fdf8f0;
     }
 
@@ -20,8 +20,8 @@
         width: 100%;
         aspect-ratio: 1 / 1;
         object-fit: cover;
-        border-radius: 10px;
-        border: 1px solid #f0d6d6;
+        border-radius: 8px;
+        border: 1px solid #e5dcd3;
     }
 
     .info-label {
@@ -39,29 +39,36 @@
 
     .info-value.harga-jual {
         font-size: 1.4rem;
-        color: #e29aa4;
+        color: #a3767b;
     }
 
     .badge-stok {
         display: inline-block;
         font-size: 0.8rem;
         color: #4a3f35;
-        background-color: #fdf0f0;
-        border-radius: 20px;
+        background-color: #f4efe9;
+        border-radius: 6px;
         padding: 4px 14px;
     }
 
     .btn-warning {
+        background-color: #b98a8f;
+        border-color: #b98a8f;
+        color: #fdf8f0;
+    }
+    .btn-warning:hover {
+        background-color: #a3767b;
+        border-color: #a3767b;
         color: #fdf8f0;
     }
     .btn-secondary {
-        background-color: #e9c9c9;
-        border-color: #e9c9c9;
+        background-color: #ece4dd;
+        border-color: #ece4dd;
         color: #4a3f35;
     }
     .btn-secondary:hover {
-        background-color: #dcb8b8;
-        border-color: #dcb8b8;
+        background-color: #ddd2c7;
+        border-color: #ddd2c7;
         color: #4a3f35;
     }
 </style>

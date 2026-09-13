@@ -11,40 +11,40 @@
     }
 
     .card {
-        border: 1px solid #f0d6d6;
-        border-radius: 10px;
+        border: 1px solid #e5dcd3;
+        border-radius: 8px;
     }
 
     .form-control,
     .form-select {
-        border: 1px solid #f0d6d6;
-        border-radius: 8px;
+        border: 1px solid #e5dcd3;
+        border-radius: 6px;
         background-color: #fdf8f0;
     }
     .form-control:focus,
     .form-select:focus {
-        border-color: #e29aa4;
-        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.2);
+        border-color: #b98a8f;
+        box-shadow: 0 0 0 0.2rem rgba(185, 138, 143, 0.15);
     }
 
     .btn-outline-primary {
         color: #4a3f35;
-        border-color: #f0d6d6;
+        border-color: #e5dcd3;
     }
     .btn-outline-primary:hover,
     .btn-outline-primary:active {
-        background-color: #faeaea;
-        border-color: #e29aa4;
+        background-color: #ece4dd;
+        border-color: #b98a8f;
         color: #4a3f35;
     }
 
     .btn-primary {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
     }
     .btn-primary:hover {
-        background-color: #d17d8c;
-        border-color: #d17d8c;
+        background-color: #a3767b;
+        border-color: #a3767b;
     }
 
     .table {
@@ -52,26 +52,45 @@
     }
     .table thead th {
         color: #4a3f35;
-        border-color: #f0d6d6;
+        border-color: #e5dcd3;
         font-weight: 700;
     }
     .table td {
-        border-color: #f2dcdc;
+        border-color: #ece4dd;
         vertical-align: middle;
     }
 
     .card-footer {
-        background-color: #faeaea;
-        border-top: 1px solid #f0d6d6;
+        background-color: #ece4dd;
+        border-top: 1px solid #e5dcd3;
     }
 
     .btn-success {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
     }
     .btn-success:hover {
-        background-color: #d17d8c;
-        border-color: #d17d8c;
+        background-color: #a3767b;
+        border-color: #a3767b;
+    }
+
+    .btn-danger {
+        background-color: #8f5f64;
+        border-color: #8f5f64;
+    }
+    .btn-danger:hover {
+        background-color: #7a4f53;
+        border-color: #7a4f53;
+    }
+
+    .btn-outline-danger {
+        color: #8f5f64;
+        border-color: #8f5f64;
+    }
+    .btn-outline-danger:hover {
+        background-color: #8f5f64;
+        border-color: #8f5f64;
+        color: #fff;
     }
 
     /* grid produk ala marketplace */
@@ -83,8 +102,8 @@
 
     .produk-pick-card {
         background-color: #fdf8f0;
-        border: 1px solid #f0d6d6;
-        border-radius: 10px;
+        border: 1px solid #e5dcd3;
+        border-radius: 8px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -92,7 +111,7 @@
     }
 
     .produk-pick-card:hover {
-        box-shadow: 0 4px 12px rgba(74, 63, 53, 0.12);
+        box-shadow: 0 4px 12px rgba(74, 63, 53, 0.1);
         transform: translateY(-2px);
     }
 
@@ -109,7 +128,7 @@
         width: 100%;
         aspect-ratio: 1 / 1;
         object-fit: cover;
-        background-color: #fdf0f0;
+        background-color: #f4efe9;
         display: block;
     }
 
@@ -128,7 +147,7 @@
     }
 
     .produk-pick-harga {
-        color: #e29aa4;
+        color: #a3767b;
         font-weight: 700;
         font-size: 0.85rem;
         margin-bottom: 8px;
@@ -309,9 +328,9 @@
     <p class="fw-semibold mb-2" style="color:#4a3f35;">Scan untuk membayar</p>
 
     <img src="{{ asset('images/qris-dana.png') }}" alt="QRIS DANA"
-        style="max-width:220px; width:100%; border:1px solid #f0d6d6; border-radius:8px;">
+        style="max-width:220px; width:100%; border:1px solid #e5dcd3; border-radius:6px;">
 
-    <p class="fw-bold mt-2 mb-1" style="color:#e29aa4; font-size:1.1rem;">
+    <p class="fw-bold mt-2 mb-1" style="color:#a3767b; font-size:1.1rem;">
         Rp {{ number_format($sale->total_pembayaran, 0, ',', '.') }}
     </p>
 </div>

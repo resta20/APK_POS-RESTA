@@ -17,51 +17,51 @@
     }
 
     .btn-primary {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
         color: #fdf8f0;
     }
     .btn-primary:hover {
-        background-color: #d17d8c;
-        border-color: #d17d8c;
+        background-color: #a3767b;
+        border-color: #a3767b;
         color: #fdf8f0;
     }
 
     .search-card {
         background-color: #fdf8f0;
-        border: 1px solid #faeaea;
-        border-radius: 10px;
+        border: 1px solid #ece4dd;
+        border-radius: 8px;
         padding: 0.75rem 1rem;
         margin-bottom: 1.5rem;
     }
 
     .form-control {
-        border: 1px solid #f0d6d6;
-        border-radius: 8px 0 0 8px;
+        border: 1px solid #e5dcd3;
+        border-radius: 6px 0 0 6px;
         background-color: #fdf8f0;
     }
     .form-control:focus {
-        border-color: #e29aa4;
-        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.2);
+        border-color: #b98a8f;
+        box-shadow: 0 0 0 0.2rem rgba(185, 138, 143, 0.15);
     }
 
     .btn-outline-secondary {
-        border: 1px solid #f0d6d6;
-        border-radius: 0 8px 8px 0;
+        border: 1px solid #e5dcd3;
+        border-radius: 0 6px 6px 0;
         color: #4a3f35;
         background-color: transparent;
     }
     .btn-outline-secondary:hover {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
         color: #fdf8f0;
     }
 
     .data-card {
         background-color: #fff;
-        border: 1px solid #faeaea;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(74, 63, 53, 0.06);
+        border: 1px solid #ece4dd;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(74, 63, 53, 0.05);
         overflow: hidden;
     }
 
@@ -71,9 +71,9 @@
     }
 
     .table thead th {
-        background-color: #fbeff0;
+        background-color: #f4efe9;
         color: #4a3f35;
-        border-bottom: 2px solid #f0d6d6;
+        border-bottom: 2px solid #e5dcd3;
         font-weight: 700;
         padding-top: 0.9rem;
         padding-bottom: 0.9rem;
@@ -81,11 +81,11 @@
     }
 
     .table tbody tr:hover {
-        background-color: #fdf5f5;
+        background-color: #fbf7f2;
     }
 
     .table tbody td {
-        border-bottom: 1px solid #f2dcdc;
+        border-bottom: 1px solid #ece4dd;
         vertical-align: middle;
         padding-top: 0.8rem;
         padding-bottom: 0.8rem;
@@ -95,14 +95,27 @@
     .table td:last-child, .table th:last-child { padding-right: 1.25rem; }
 
     .btn-warning {
+        background-color: #b98a8f;
+        border-color: #b98a8f;
         color: #fdf8f0;
     }
     .btn-warning:hover {
+        background-color: #a3767b;
+        border-color: #a3767b;
         color: #fdf8f0;
     }
 
+    .btn-danger {
+        background-color: #8f5f64;
+        border-color: #8f5f64;
+    }
+    .btn-danger:hover {
+        background-color: #7a4f53;
+        border-color: #7a4f53;
+    }
+
     .badge.bg-secondary {
-        background-color: #f0d6d6 !important;
+        background-color: #ece4dd !important;
         color: #4a3f35 !important;
         font-weight: 600;
     }
@@ -210,7 +223,7 @@
 <div class="modal fade" id="detailPenjualanModal" tabindex="-1" aria-labelledby="detailPenjualanModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header" style="border-bottom:1px solid #f0d6d6;">
+            <div class="modal-header" style="border-bottom:1px solid #e5dcd3;">
                 <h5 class="modal-title" id="detailPenjualanModalLabel" style="color:#4a3f35; font-weight:700;">
                     Detail Penjualan
                 </h5>
@@ -218,7 +231,7 @@
             </div>
             <div class="modal-body" id="detailPenjualanBody">
                 <div class="text-center py-5">
-                    <div class="spinner-border" role="status" style="color:#e29aa4;"></div>
+                    <div class="spinner-border" role="status" style="color:#b98a8f;"></div>
                 </div>
             </div>
         </div>
@@ -239,7 +252,7 @@
 
         body.innerHTML = `
             <div class="text-center py-5">
-                <div class="spinner-border" role="status" style="color:#e29aa4;"></div>
+                <div class="spinner-border" role="status" style="color:#b98a8f;"></div>
             </div>`;
 
         const modal = bootstrap.Modal.getOrCreateInstance(modalEl);

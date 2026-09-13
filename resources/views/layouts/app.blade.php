@@ -21,13 +21,15 @@
             font-family: 'Fredoka', sans-serif;
         }
         .alert-success {
-            background-color: #e8f0e3;
-            border-color: #a3b899;
+            background-color: #f1efec;
+            border: none;
+            border-left: 3px solid #a8a29a;
+            border-radius: 0 6px 6px 0;
             color: #4a3f35;
         }
         .alert-danger {
             background-color: #fbeaea;
-            border-color: #e29aa4;
+            border-color: #b98a8f;
             color: #4a3f35;
         }
 
@@ -44,7 +46,7 @@
             color: #8a7d72 !important;
         }
         .swal-confirm-btn {
-            background-color: #e29aa4 !important;
+            background-color: #b98a8f !important;
             color: #fdf8f0 !important;
             border-radius: 20px !important;
             font-weight: 600 !important;
@@ -52,10 +54,10 @@
             box-shadow: none !important;
         }
         .swal-confirm-btn:hover {
-            background-color: #d17d8c !important;
+            background-color: #a3767b !important;
         }
         .swal-cancel-btn {
-            background-color: #f0d6d6 !important;
+            background-color: #ece4dd !important;
             color: #4a3f35 !important;
             border-radius: 20px !important;
             font-weight: 600 !important;
@@ -63,7 +65,7 @@
             box-shadow: none !important;
         }
         .swal-cancel-btn:hover {
-            background-color: #e9c9c9 !important;
+            background-color: #ddd2c7 !important;
         }
     </style>
 </head>
@@ -98,6 +100,9 @@
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- html2canvas: untuk fitur cetak/simpan struk sebagai gambar -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <script>
     document.addEventListener('submit', function (e) {
         const form = e.target.closest('.js-confirm-delete');
@@ -125,6 +130,25 @@
             if (result.isConfirmed) {
                 form.submit();
             }
+        });
+    });
+
+    // Cetak / simpan struk sebagai gambar (event delegation, aman dipakai di modal fetch)
+    document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.btn-cetak-struk');
+        if (!btn) return;
+
+        const struk = document.getElementById(btn.dataset.target);
+        if (!struk) return;
+
+        html2canvas(struk, {
+            backgroundColor: '#fffdfa',
+            scale: 2
+        }).then(function (canvas) {
+            const link = document.createElement('a');
+            link.download = (btn.dataset.nama || 'struk') + '.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
         });
     });
 </script>

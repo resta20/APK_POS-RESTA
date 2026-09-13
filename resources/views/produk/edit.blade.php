@@ -17,38 +17,38 @@
     }
 
     .form-control {
-        border: 1px solid #f0d6d6;
-        border-radius: 8px;
+        border: 1px solid #e5dcd3;
+        border-radius: 6px;
         background-color: #fdf8f0;
     }
 
     .form-control:focus {
-        border-color: #e29aa4;
-        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.2);
+        border-color: #b98a8f;
+        box-shadow: 0 0 0 0.2rem rgba(185, 138, 143, 0.15);
     }
 
     .img-thumbnail {
-        border: 1px solid #f0d6d6;
-        border-radius: 8px;
+        border: 1px solid #e5dcd3;
+        border-radius: 6px;
     }
 
     .btn-success {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
     }
     .btn-success:hover {
-        background-color: #d17d8c;
-        border-color: #d17d8c;
+        background-color: #a3767b;
+        border-color: #a3767b;
     }
 
     .btn-secondary {
-        background-color: #e9c9c9;
-        border-color: #e9c9c9;
+        background-color: #ece4dd;
+        border-color: #ece4dd;
         color: #4a3f35;
     }
     .btn-secondary:hover {
-        background-color: #dcb8b8;
-        border-color: #dcb8b8;
+        background-color: #ddd2c7;
+        border-color: #ddd2c7;
         color: #4a3f35;
     }
 </style>

@@ -17,59 +17,72 @@
     }
 
     .btn-primary {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
     }
     .btn-primary:hover {
-        background-color: #d17d8c;
-        border-color: #d17d8c;
+        background-color: #a3767b;
+        border-color: #a3767b;
     }
 
     .search-card {
         background-color: #fdf8f0;
-        border: 1px solid #faeaea;
-        border-radius: 10px;
+        border: 1px solid #ece4dd;
+        border-radius: 8px;
         padding: 0.75rem 1rem;
         margin-bottom: 1.5rem;
     }
 
     .form-control {
-        border: 1px solid #f0d6d6;
-        border-radius: 8px 0 0 8px;
+        border: 1px solid #e5dcd3;
+        border-radius: 6px 0 0 6px;
         background-color: #fdf8f0;
     }
     .form-control:focus {
-        border-color: #e29aa4;
-        box-shadow: 0 0 0 0.2rem rgba(226, 154, 164, 0.2);
+        border-color: #b98a8f;
+        box-shadow: 0 0 0 0.2rem rgba(185, 138, 143, 0.15);
     }
 
     .btn-outline-secondary {
-        border: 1px solid #f0d6d6;
-        border-radius: 0 8px 8px 0;
+        border: 1px solid #e5dcd3;
+        border-radius: 0 6px 6px 0;
         color: #4a3f35;
         background-color: transparent;
     }
     .btn-outline-secondary:hover {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
         color: #fdf8f0;
     }
 
     .btn-warning {
+        background-color: #b98a8f;
+        border-color: #b98a8f;
         color: #fdf8f0;
     }
     .btn-warning:hover {
+        background-color: #a3767b;
+        border-color: #a3767b;
         color: #fdf8f0;
     }
 
+    .btn-danger {
+        background-color: #8f5f64;
+        border-color: #8f5f64;
+    }
+    .btn-danger:hover {
+        background-color: #7a4f53;
+        border-color: #7a4f53;
+    }
+
     .btn-secondary {
-        background-color: #e9c9c9;
-        border-color: #e9c9c9;
+        background-color: #ece4dd;
+        border-color: #ece4dd;
         color: #4a3f35;
     }
     .btn-secondary:hover {
-        background-color: #dcb8b8;
-        border-color: #dcb8b8;
+        background-color: #ddd2c7;
+        border-color: #ddd2c7;
         color: #4a3f35;
     }
 
@@ -82,8 +95,8 @@
 
     .produk-card {
         background-color: #fdf8f0;
-        border: 1px solid #f0d6d6;
-        border-radius: 12px;
+        border: 1px solid #e5dcd3;
+        border-radius: 10px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -91,7 +104,7 @@
     }
 
     .produk-card:hover {
-        box-shadow: 0 6px 16px rgba(74, 63, 53, 0.12);
+        box-shadow: 0 6px 16px rgba(74, 63, 53, 0.1);
         transform: translateY(-2px);
     }
 
@@ -99,18 +112,18 @@
         width: 100%;
         height: 150px;
         object-fit: cover;
-        background-color: #fdf0f0;
+        background-color: #f4efe9;
         display: block;
     }
 
     .produk-card-photo-placeholder {
         width: 100%;
         height: 150px;
-        background-color: #fdf0f0;
+        background-color: #f4efe9;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #dcb8b8;
+        color: #b8a99c;
         font-size: 0.8rem;
     }
 
@@ -139,27 +152,27 @@
     }
 
     .produk-card-meta strong {
-        color: #d17d8c;
+        color: #a3767b;
     }
 
     .produk-card-price-row {
         display: flex;
         align-items: baseline;
         gap: 6px;
-        border-top: 1px dashed #f0d6d6;
+        border-top: 1px dashed #e5dcd3;
         padding-top: 10px;
         margin-bottom: 10px;
     }
 
     .produk-card-dots {
         flex: 1;
-        border-bottom: 1px dotted #e9c9c9;
+        border-bottom: 1px dotted #ddd2c7;
         margin-bottom: 4px;
     }
 
     .produk-card-harga {
         font-family: 'Fredoka', sans-serif;
-        color: #e29aa4;
+        color: #a3767b;
         font-weight: 700;
         font-size: 1.05rem;
         white-space: nowrap;
@@ -169,8 +182,8 @@
         display: inline-block;
         font-size: 0.72rem;
         color: #4a3f35;
-        background-color: #fdf0f0;
-        border-radius: 20px;
+        background-color: #f4efe9;
+        border-radius: 6px;
         padding: 2px 10px;
         margin-bottom: 10px;
         width: fit-content;

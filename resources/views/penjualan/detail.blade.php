@@ -5,134 +5,175 @@
 @section('penjualan-body')
 
     <style>
-        .table { color: #4a3f35; }
-        .table thead th { color: #4a3f35; border-bottom: 2px solid #f0d6d6; font-weight: 700; }
-        .table tbody td { border-bottom: 1px solid #f2dcdc; vertical-align: middle; }
+        .struk-wrapper {
+            display: flex;
+            justify-content: center;
+        }
 
-        .info-card {
-            background-color: #fdf8f0;
+        .struk {
+            font-family: 'Courier New', Courier, monospace;
+            width: 100%;
+            max-width: 380px;
+            background-color: #fffdfa;
             border: 1px solid #f0d6d6;
-            border-radius: 8px;
-            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            padding: 1.5rem 1.5rem 1.25rem;
+            color: #4a3f35;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
         }
-        .info-label {
-            color: #d17d8c;
+
+        .struk-header {
+            text-align: center;
+            margin-bottom: 0.75rem;
+        }
+        .struk-header h5 {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+            color: #4a3f35;
+        }
+        .struk-header small {
+            color: #a8887f;
+            letter-spacing: 0.05em;
+        }
+
+        .struk-divider {
+            border-top: 1px dashed #d8b8b8;
+            margin: 0.75rem 0;
+        }
+
+        .struk-info div {
+            display: flex;
+            justify-content: space-between;
             font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
+            margin-bottom: 0.35rem;
         }
-        .info-value { color: #4a3f35; font-weight: 600; font-size: 1.05rem; }
+        .struk-info .label {
+            color: #a8887f;
+        }
+        .struk-info .value {
+            font-weight: 600;
+            text-align: right;
+        }
 
         .badge-status {
             display: inline-block;
-            padding: 0.35rem 0.75rem;
+            padding: 0.15rem 0.6rem;
             border-radius: 20px;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.72rem;
         }
         .badge-completed { background-color: #e8f0e3; color: #5f7a52; }
         .badge-open { background-color: #fbeed9; color: #a3792f; }
 
-        .total-row td {
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-top: 2px solid #f0d6d6;
-            border-bottom: none !important;
+        .struk-item {
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
+        }
+        .struk-item .produk-nama {
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+        .struk-item .produk-rincian {
+            display: flex;
+            justify-content: space-between;
+            color: #7a6a60;
         }
 
-        .produk-img {
-            width: 48px; height: 48px; object-fit: cover;
-            border-radius: 6px; border: 1px solid #f0d6d6; background-color: #fdf3f3;
+        .struk-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
         }
-        .produk-img-placeholder {
-            width: 48px; height: 48px; border-radius: 6px;
-            border: 1px solid #f0d6d6; background-color: #fdf3f3;
-            display: flex; align-items: center; justify-content: center;
-            color: #dcb8b8; font-size: 0.7rem;
+
+        .struk-footer {
+            text-align: center;
+            margin-top: 1rem;
+            color: #a8887f;
+            font-size: 0.8rem;
         }
-        .produk-cell { display: flex; align-items: center; gap: 0.75rem; }
+
+        .struk-empty {
+            text-align: center;
+            color: #a8887f;
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+        }
     </style>
 
-    <div class="info-card mb-4">
-        <div class="row">
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="info-label">Tanggal Transaksi</div>
-                <div class="info-value">{{ $penjualan->created_at->translatedFormat('d-m-Y H:i:s') }}</div>
-            </div>
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="info-label">Kasir</div>
-                <div class="info-value">{{ $penjualan->user->name }}</div>
-            </div>
-            <div class="col-md-3 mb-3 mb-md-0">
-                <div class="info-label">Metode Pembayaran</div>
-                <div class="info-value">{{ $penjualan->metode_pembayaran }}</div>
-            </div>
-            <div class="col-md-3">
-                <div class="info-label">Status</div>
-                <span class="badge-status {{ $penjualan->status === 'COMPLETED' ? 'badge-completed' : 'badge-open' }}">
-                    {{ $penjualan->status }}
-                </span>
-            </div>
-        </div>
+    <div class="struk-wrapper">
+        <div class="struk">
 
-        @if ($penjualan->metode_pembayaran === 'CASH' && !is_null($penjualan->uang_diterima))
-            <hr style="border-color:#f0d6d6;">
-            <div class="row">
-                <div class="col-md-3 mb-3 mb-md-0">
-                    <div class="info-label">Uang Diterima</div>
-                    <div class="info-value">Rp {{ number_format($penjualan->uang_diterima, 0, ',', '.') }}</div>
+            <div class="struk-header">
+                <h5>restathrift</h5>
+                <small>STRUK PENJUALAN</small>
+            </div>
+
+            <div class="struk-divider"></div>
+
+            <div class="struk-info">
+                <div>
+                    <span class="label">Tanggal</span>
+                    <span class="value">{{ $penjualan->created_at->translatedFormat('d-m-Y H:i:s') }}</span>
                 </div>
-                <div class="col-md-3">
-                    <div class="info-label">Kembalian</div>
-                    <div class="info-value">Rp {{ number_format($penjualan->kembalian, 0, ',', '.') }}</div>
+                <div>
+                    <span class="label">Kasir</span>
+                    <span class="value">{{ $penjualan->user->name }}</span>
                 </div>
+                <div>
+                    <span class="label">Metode</span>
+                    <span class="value">{{ $penjualan->metode_pembayaran }}</span>
+                </div>
+                <div>
+                    <span class="label">Status</span>
+                    <span class="value">
+                        <span class="badge-status {{ $penjualan->status === 'COMPLETED' ? 'badge-completed' : 'badge-open' }}">
+                            {{ $penjualan->status }}
+                        </span>
+                    </span>
+                </div>
+
+                @if ($penjualan->metode_pembayaran === 'CASH' && !is_null($penjualan->uang_diterima))
+                    <div>
+                        <span class="label">Uang Diterima</span>
+                        <span class="value">Rp {{ number_format($penjualan->uang_diterima, 0, ',', '.') }}</span>
+                    </div>
+                    <div>
+                        <span class="label">Kembalian</span>
+                        <span class="value">Rp {{ number_format($penjualan->kembalian, 0, ',', '.') }}</span>
+                    </div>
+                @endif
             </div>
-        @endif
-    </div>
 
-    <h5 class="mb-3" style="color:#4a3f35; font-weight:700;">Daftar Item</h5>
+            <div class="struk-divider"></div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Produk</th>
-                <th>Harga Satuan</th>
-                <th>Kuantitas</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
             @forelse($penjualan->itempenjualan as $item)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>
-                        <div class="produk-cell">
-                            @if ($item->produk && $item->produk->foto)
-                                <img src="{{ Storage::url($item->produk->foto) }}" alt="{{ $item->produk->nama }}" class="produk-img">
-                            @else
-                                <div class="produk-img-placeholder">N/A</div>
-                            @endif
-                            <span>{{ $item->produk->nama ?? '-' }}</span>
-                        </div>
-                    </td>
-                    <td>Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
-                    <td>{{ $item->kuantitas }}</td>
-                    <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
-                </tr>
+                <div class="struk-item">
+                    <div class="produk-nama">{{ $item->produk->nama ?? '-' }}</div>
+                    <div class="produk-rincian">
+                        <span>{{ $item->kuantitas }} x Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</span>
+                        <span>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</span>
+                    </div>
+                </div>
             @empty
-                <tr>
-                    <td colspan="5" class="text-center">Tidak ada item</td>
-                </tr>
+                <div class="struk-empty">Tidak ada item</div>
             @endforelse
 
-            <tr class="total-row">
-                <td colspan="4" class="text-end">Total Pembayaran</td>
-                <td>Rp {{ number_format($penjualan->total_pembayaran, 0, ',', '.') }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="struk-divider"></div>
+
+            <div class="struk-total">
+                <span>TOTAL</span>
+                <span>Rp {{ number_format($penjualan->total_pembayaran, 0, ',', '.') }}</span>
+            </div>
+
+            <div class="struk-footer">
+                Terima kasih telah berbelanja!
+            </div>
+
+        </div>
+    </div>
 
 @endsection
 
@@ -142,8 +183,10 @@
 
     @yield('penjualan-body')
 
-    <a href="{{ route('penjualan.index') }}" class="btn btn-outline-secondary mt-3" style="border:1px solid #f0d6d6; color:#4a3f35;">
-        Kembali
-    </a>
+    <div class="struk-wrapper">
+        <a href="{{ route('penjualan.index') }}" class="btn btn-outline-secondary mt-3" style="border:1px solid #f0d6d6; color:#4a3f35;">
+            Kembali
+        </a>
+    </div>
 
 @endsection

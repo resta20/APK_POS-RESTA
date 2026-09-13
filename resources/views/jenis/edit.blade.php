@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Jenis')
+
 @section('content')
 <style>
     .jenis-form-page {
-        font-family: 'Work Sans', sans-serif;
+        font-family: 'Nunito', sans-serif;
         padding: 24px 0;
     }
 
     .jenis-form-page h2 {
+        font-family: 'Fredoka', sans-serif;
         font-weight: 700;
         color: #4a3f35;
         font-size: 1.4rem;
@@ -21,30 +24,35 @@
     }
 
     .jenis-form-page .form-control {
-        border: 1px solid #f0d6d6;
+        border: 1px solid #e5dcd3;
+        background-color: #fdf8f0;
+    }
+    .jenis-form-page .form-control:focus {
+        border-color: #b98a8f;
+        box-shadow: 0 0 0 0.2rem rgba(185, 138, 143, 0.15);
     }
 
     .btn-simpan {
-        background: #e29aa4;
+        background: #b98a8f;
         border: none;
         color: #fdf8f0;
-        font-weight: 500;
+        font-weight: 600;
         padding: 8px 20px;
-        border-radius: 4px;
+        border-radius: 6px;
     }
 
     .btn-simpan:hover {
-        background: #d17d8c;
+        background: #a3767b;
         color: #fdf8f0;
     }
 
     .btn-batal {
         background: transparent;
-        border: 1px solid #f0d6d6;
+        border: 1px solid #e5dcd3;
         color: #4a3f35;
-        font-weight: 500;
+        font-weight: 600;
         padding: 8px 20px;
-        border-radius: 4px;
+        border-radius: 6px;
     }
 
     .btn-batal:hover {

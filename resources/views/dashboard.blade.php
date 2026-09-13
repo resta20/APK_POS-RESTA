@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login')
+@section('title', 'Dashboard')
 
 @section('content')
 
@@ -27,17 +27,17 @@
         }
 
         .dashboard-card {
-            border: 1px solid #f0d6d6;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(74, 63, 53, 0.08);
+            border: 1px solid #e5dcd3;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(74, 63, 53, 0.05);
             margin-bottom: 1.5rem;
             overflow: hidden;
             background-color: #ffffff;
         }
 
         .dashboard-card .card-header {
-            background-color: #faeaea;
-            color: #e29aa4;
+            background-color: #ece4dd;
+            color: #a3767b;
             font-weight: 600;
             font-size: 0.85rem;
             border-bottom: none;
@@ -55,17 +55,17 @@
         }
 
         .dashboard-table {
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(74, 63, 53, 0.06);
+            box-shadow: 0 4px 14px rgba(74, 63, 53, 0.04);
         }
 
         .dashboard-table thead {
-            background-color: #faeaea;
+            background-color: #ece4dd;
         }
 
         .dashboard-table thead th {
-            color: #e29aa4;
+            color: #a3767b;
             font-weight: 600;
             font-size: 0.85rem;
             border-bottom: none;
@@ -81,17 +81,17 @@
         }
 
         .pagination .page-link {
-            color: #e29aa4;
-            border: 1px solid #f0d6d6;
+            color: #a3767b;
+            border: 1px solid #e5dcd3;
         }
 
         .pagination .page-item.active .page-link {
-            background-color: #e29aa4;
-            border-color: #e29aa4;
+            background-color: #b98a8f;
+            border-color: #b98a8f;
         }
 
         .pagination .page-link:hover {
-            background-color: #faeaea;
+            background-color: #ece4dd;
             color: #4a3f35;
         }
     </style>

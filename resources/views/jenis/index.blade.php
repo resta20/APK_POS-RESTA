@@ -17,19 +17,19 @@
     }
 
     .btn-primary {
-        background-color: #e29aa4;
-        border-color: #e29aa4;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
     }
     .btn-primary:hover {
-        background-color: #d17d8c;
-        border-color: #d17d8c;
+        background-color: #a3767b;
+        border-color: #a3767b;
     }
 
     .data-card {
         background-color: #fff;
-        border: 1px solid #faeaea;
-        border-radius: 12px;
-        box-shadow: 0 2px 10px rgba(74, 63, 53, 0.06);
+        border: 1px solid #ece4dd;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(74, 63, 53, 0.05);
         overflow: hidden;
     }
 
@@ -39,20 +39,20 @@
     }
 
     .table thead th {
-        background-color: #fbeff0;
+        background-color: #f4efe9;
         color: #4a3f35;
-        border-bottom: 2px solid #f0d6d6;
+        border-bottom: 2px solid #e5dcd3;
         font-weight: 700;
         padding-top: 0.9rem;
         padding-bottom: 0.9rem;
     }
 
     .table tbody tr:hover {
-        background-color: #fdf5f5;
+        background-color: #fbf7f2;
     }
 
     .table tbody td {
-        border-bottom: 1px solid #f2dcdc;
+        border-bottom: 1px solid #ece4dd;
         vertical-align: middle;
         padding-top: 0.8rem;
         padding-bottom: 0.8rem;
@@ -62,18 +62,27 @@
     .table td:last-child, .table th:last-child { padding-right: 1.25rem; }
 
     .table a {
-        color: #e29aa4;
+        color: #a3767b;
     }
 
     .btn-warning {
-        background-color: #e0ab4f;
-        border-color: #e0ab4f;
+        background-color: #b98a8f;
+        border-color: #b98a8f;
         color: #fdf8f0;
     }
     .btn-warning:hover {
-        background-color: #b8863a;
-        border-color: #b8863a;
+        background-color: #a3767b;
+        border-color: #a3767b;
         color: #fdf8f0;
+    }
+
+    .btn-danger {
+        background-color: #8f5f64;
+        border-color: #8f5f64;
+    }
+    .btn-danger:hover {
+        background-color: #7a4f53;
+        border-color: #7a4f53;
     }
 
     .creator-badge {
@@ -85,8 +94,8 @@
         width: 26px;
         height: 26px;
         border-radius: 50%;
-        background-color: #f0d6d6;
-        color: #d17d8c;
+        background-color: #ece4dd;
+        color: #a3767b;
         font-size: 0.75rem;
         font-weight: 700;
         display: inline-flex;

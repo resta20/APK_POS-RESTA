@@ -3,17 +3,17 @@
 
     .board-nav {
         background: #fdf8f0;
-        border-bottom: 3px solid #e29aa4;
-        border-image: linear-gradient(90deg, #e29aa4 0%, #e0ab4f 50%, #a3b899 100%) 1;
+        border-bottom: 3px solid #b98a8f;
+        border-image: linear-gradient(90deg, #b98a8f 0%, #d3a86b 50%, #93a884 100%) 1;
         font-family: 'Nunito', sans-serif;
         padding: 14px 0;
     }
 
     .board-nav .navbar-brand {
         font-family: 'Fredoka', sans-serif;
-        font-weight: 600;
-        font-size: 1.4rem;
-        letter-spacing: -0.2px;
+        font-weight: 700;
+        font-size: 1.7rem;
+        letter-spacing: -0.3px;
         color: #4a3f35 !important;
         display: flex;
         align-items: center;
@@ -24,36 +24,38 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 30px;
-        height: 30px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
-        background: #e29aa4;
-        font-size: 1rem;
+        background: #b98a8f;
+        font-size: 1.1rem;
     }
 
     .board-nav .nav-link {
         font-size: 1rem;
         font-weight: 600;
         color: #8a7d72 !important;
-        padding: 8px 16px !important;
-        border-radius: 20px;
-        transition: color 0.15s ease, background-color 0.15s ease;
+        padding: 8px 4px !important;
+        margin: 0 12px;
+        border-radius: 0;
+        border-bottom: 2px solid transparent;
+        transition: color 0.15s ease, border-color 0.15s ease;
     }
 
     .board-nav .nav-link:hover {
         color: #4a3f35 !important;
-        background-color: #faeaea;
+        border-bottom-color: #e5dcd3;
     }
 
     .board-nav .nav-link.active {
         color: #4a3f35 !important;
-        background-color: #f0d6d6;
-        position: relative;
+        background-color: transparent;
+        border-bottom-color: #b98a8f;
     }
 
     .board-nav .btn-danger {
         background: transparent;
-        border: 1.5px solid #e29aa4;
+        border: 1.5px solid #b98a8f;
         color: #4a3f35;
         font-size: 0.85rem;
         font-weight: 600;
@@ -62,15 +64,15 @@
     }
 
     .board-nav .btn-danger:hover {
-        background: #e29aa4;
-        border-color: #e29aa4;
+        background: #b98a8f;
+        border-color: #b98a8f;
         color: #fdf8f0;
     }
 </style>
 
 <nav class="navbar navbar-expand-lg board-nav">
     <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
-        <a class="navbar-brand" href="#"><span class="brand-badge">🎀</span>restathrift</a>
+        <a class="navbar-brand" href="#">restathrift</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
