@@ -144,9 +144,16 @@
 <div class="search-card">
     <form action="{{ route('penjualan.index') }}" method="GET">
         <div class="input-group">
-            <input type="text" name="search" value="{{ request('search') }}" class="form-control"
-                placeholder="Cari penjualan">
-            <button class="btn btn-outline-secondary" type="submit">Search</button>
+            <input
+                type="text"
+                name="search"
+                value="{{ request('search') }}"
+                class="form-control"
+                placeholder="Cari nama penjualan"
+            >
+            <button class="btn btn-outline-secondary" type="submit">
+                Cari
+            </button>
         </div>
     </form>
 </div>

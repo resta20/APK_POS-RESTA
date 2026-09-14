@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ItemPenjualanController;
 use App\Http\Controllers\JenisController;
+use App\Http\Controllers\AboutController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -17,9 +18,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/about', [AboutController::class, 'index'])->name('about');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // ADMIN + KASIR (tanpa prefix admin/)
+   
     Route::middleware('role:admin,kasir')->group(function () {
         Route::resource('produk', ProdukController::class);
         Route::resource('penjualan', PenjualanController::class);
@@ -29,7 +31,7 @@ Route::middleware('auth')->group(function () {
             ->parameters(['jenis' => 'jenis']);
     });
 
-    // Khusus ADMIN (tetap pakai prefix admin/)
+   
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::get('/users/create', [UserController::class, 'create'])->name('users.create');

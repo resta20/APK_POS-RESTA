@@ -22,8 +22,13 @@ class PenjualanController extends Controller
                 $query->where('user_id', $user->id);
             })
             ->when($keyword, function ($query) use ($keyword) {
-                $query->whereHas('user', function ($q) use ($keyword) {
-                    $q->where('name', 'like', '%' . $keyword . '%');
+                $query->where(function ($q) use ($keyword) {
+                    $q->whereHas('user', function ($sub) use ($keyword) {
+                        $sub->where('name', 'like', '%' . $keyword . '%');
+                    })
+                    ->orWhereHas('itemPenjualan.produk', function ($sub) use ($keyword) {
+                        $sub->where('nama', 'like', '%' . $keyword . '%');
+                    });
                 });
             })
             ->latest('updated_at')
