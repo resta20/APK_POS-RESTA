@@ -21,15 +21,15 @@
     }
 
     .board-nav .navbar-brand .brand-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        background: #b98a8f;
-        font-size: 1.1rem;
-    }
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 1.1rem;
+}
 
     .board-nav .nav-link {
         font-size: 1rem;
@@ -72,7 +72,10 @@
 
 <nav class="navbar navbar-expand-lg board-nav">
     <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
-        <a class="navbar-brand" href="#">restathrift</a>
+       <a class="navbar-brand" href="#">
+    <img src="{{ asset('images/logo2.jpeg') }}" alt="Resta Thrift Logo" class="brand-badge" style="object-fit: cover;">
+    restathrift
+</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>

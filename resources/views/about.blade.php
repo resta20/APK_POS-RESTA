@@ -50,7 +50,7 @@
             width: 100%;
             border-radius: 12px;
             box-shadow: 0 4px 14px rgba(74, 63, 53, 0.08);
-            margin-bottom: 1.5rem;
+            margin-bottom: 0;
             object-fit: cover;
             max-height: 380px;
         }
@@ -116,14 +116,19 @@
         <div class="about-section">
             <h2>Awal Mulanya</h2>
 
-         <img src="{{ asset('storage/poto1.webp') }}" alt="Suasana toko Resta Thrift" class="about-photo">
-
-            <p>
-                Resta Thrift awalnya cuma iseng jualan baju-baju bekas yang udah jarang dipakai. Ternyata
-                responnya lumayan, banyak yang suka sama modelnya, jadi lama-lama mulai serius cari
-                barang dari berbagai sumber buat dijual lagi. Sampai sekarang kami masih pegang prinsip
-                yang sama dari awal: barang yang dijual harus barang yang kami sendiri mau pakai.
-            </p>
+            <div class="row align-items-center g-4">
+                <div class="col-md-5">
+                    <img src="{{ asset('images/tokoresta.png') }}" alt="Suasana toko Resta Thrift" class="about-photo">
+                </div>
+                <div class="col-md-7">
+                    <p class="mb-0">
+                        Resta Thrift awalnya cuma iseng jualan baju-baju bekas yang udah jarang dipakai. Ternyata
+                        responnya lumayan, banyak yang suka sama modelnya, jadi lama-lama mulai serius cari
+                        barang dari berbagai sumber buat dijual lagi. Sampai sekarang kami masih pegang prinsip
+                        yang sama dari awal barang yang dijual harus barang yang kami sendiri mau pakai.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div class="about-section">

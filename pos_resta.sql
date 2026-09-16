@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               11.8.8-MariaDB - MariaDB Server
+-- Server version:               8.4.3 - MySQL Community Server - GPL
 -- Server OS:                    Win64
--- HeidiSQL Version:             12.17.0.7270
+-- HeidiSQL Version:             12.8.0.6908
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,14 +16,14 @@
 
 
 -- Dumping database structure for pos_resta
-CREATE DATABASE IF NOT EXISTS `pos_resta` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci */;
+CREATE DATABASE IF NOT EXISTS `pos_resta` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `pos_resta`;
 
 -- Dumping structure for table pos_resta.cache
 CREATE TABLE IF NOT EXISTS `cache` (
-  `key` varchar(255) NOT NULL,
-  `value` mediumtext NOT NULL,
-  `expiration` int(11) NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int NOT NULL,
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `cache` (
 
 -- Dumping structure for table pos_resta.cache_locks
 CREATE TABLE IF NOT EXISTS `cache_locks` (
-  `key` varchar(255) NOT NULL,
-  `owner` varchar(255) NOT NULL,
-  `expiration` int(11) NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expiration` int NOT NULL,
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -41,13 +41,13 @@ CREATE TABLE IF NOT EXISTS `cache_locks` (
 
 -- Dumping structure for table pos_resta.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -56,12 +56,12 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 
 -- Dumping structure for table pos_resta.item_penjualan
 CREATE TABLE IF NOT EXISTS `item_penjualan` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `penjualan_id` bigint(20) unsigned NOT NULL,
-  `produk_id` bigint(20) unsigned NOT NULL,
-  `kuantitas` int(11) NOT NULL,
-  `harga_satuan` int(11) NOT NULL,
-  `subtotal` int(11) NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `penjualan_id` bigint unsigned NOT NULL,
+  `produk_id` bigint unsigned NOT NULL,
+  `kuantitas` int NOT NULL,
+  `harga_satuan` int NOT NULL,
+  `subtotal` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -69,20 +69,21 @@ CREATE TABLE IF NOT EXISTS `item_penjualan` (
   KEY `item_penjualan_produk_id_foreign` (`produk_id`),
   CONSTRAINT `item_penjualan_penjualan_id_foreign` FOREIGN KEY (`penjualan_id`) REFERENCES `penjualan` (`id`),
   CONSTRAINT `item_penjualan_produk_id_foreign` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table pos_resta.item_penjualan: ~4 rows (approximately)
 INSERT INTO `item_penjualan` (`id`, `penjualan_id`, `produk_id`, `kuantitas`, `harga_satuan`, `subtotal`, `created_at`, `updated_at`) VALUES
 	(2, 2, 1, 1, 50000, 50000, '2026-09-10 19:05:18', '2026-09-10 19:05:18'),
 	(3, 3, 1, 1, 50000, 50000, '2026-09-10 19:42:43', '2026-09-10 19:42:43'),
 	(4, 4, 1, 1, 50000, 50000, '2026-09-10 19:43:55', '2026-09-10 19:43:55'),
-	(5, 5, 1, 2, 50000, 100000, '2026-09-10 19:51:17', '2026-09-10 19:51:21');
+	(5, 5, 1, 2, 50000, 100000, '2026-09-10 19:51:17', '2026-09-10 19:51:21'),
+	(7, 15, 9, 1, 65000, 65000, '2026-09-15 20:16:50', '2026-09-15 20:16:50');
 
 -- Dumping structure for table pos_resta.jenis
 CREATE TABLE IF NOT EXISTS `jenis` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `nama_jenis` varchar(255) NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `nama_jenis` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -95,43 +96,43 @@ INSERT INTO `jenis` (`id`, `user_id`, `nama_jenis`, `created_at`, `updated_at`) 
 	(1, 1, 'Celana', '2026-09-10 19:01:57', '2026-09-10 23:13:25'),
 	(2, 1, 'Baju', '2026-09-10 23:41:43', '2026-09-11 22:31:31');
 
--- Dumping structure for table pos_resta.job_batches
-CREATE TABLE IF NOT EXISTS `job_batches` (
-  `id` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `total_jobs` int(11) NOT NULL,
-  `pending_jobs` int(11) NOT NULL,
-  `failed_jobs` int(11) NOT NULL,
-  `failed_job_ids` longtext NOT NULL,
-  `options` mediumtext DEFAULT NULL,
-  `cancelled_at` int(11) DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
-  `finished_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Dumping data for table pos_resta.job_batches: ~0 rows (approximately)
-
 -- Dumping structure for table pos_resta.jobs
 CREATE TABLE IF NOT EXISTS `jobs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
-  `attempts` tinyint(3) unsigned NOT NULL,
-  `reserved_at` int(10) unsigned DEFAULT NULL,
-  `available_at` int(10) unsigned NOT NULL,
-  `created_at` int(10) unsigned NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attempts` tinyint unsigned NOT NULL,
+  `reserved_at` int unsigned DEFAULT NULL,
+  `available_at` int unsigned NOT NULL,
+  `created_at` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `jobs_queue_index` (`queue`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table pos_resta.jobs: ~0 rows (approximately)
 
+-- Dumping structure for table pos_resta.job_batches
+CREATE TABLE IF NOT EXISTS `job_batches` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total_jobs` int NOT NULL,
+  `pending_jobs` int NOT NULL,
+  `failed_jobs` int NOT NULL,
+  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` mediumtext COLLATE utf8mb4_unicode_ci,
+  `cancelled_at` int DEFAULT NULL,
+  `created_at` int NOT NULL,
+  `finished_at` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Dumping data for table pos_resta.job_batches: ~0 rows (approximately)
+
 -- Dumping structure for table pos_resta.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) NOT NULL,
-  `batch` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -151,8 +152,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 -- Dumping structure for table pos_resta.password_reset_tokens
 CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -161,19 +162,19 @@ CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
 
 -- Dumping structure for table pos_resta.penjualan
 CREATE TABLE IF NOT EXISTS `penjualan` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `total_pembayaran` int(11) NOT NULL,
-  `metode_pembayaran` varchar(255) NOT NULL,
-  `uang_diterima` bigint(20) unsigned DEFAULT NULL,
-  `kembalian` bigint(20) unsigned DEFAULT NULL,
-  `status` enum('OPEN','COMPLETED') NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `total_pembayaran` int NOT NULL,
+  `metode_pembayaran` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uang_diterima` bigint unsigned DEFAULT NULL,
+  `kembalian` bigint unsigned DEFAULT NULL,
+  `status` enum('OPEN','COMPLETED') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `penjualan_user_id_foreign` (`user_id`),
   CONSTRAINT `penjualan_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table pos_resta.penjualan: ~5 rows (approximately)
 INSERT INTO `penjualan` (`id`, `user_id`, `total_pembayaran`, `metode_pembayaran`, `uang_diterima`, `kembalian`, `status`, `created_at`, `updated_at`) VALUES
@@ -181,19 +182,19 @@ INSERT INTO `penjualan` (`id`, `user_id`, `total_pembayaran`, `metode_pembayaran
 	(3, 1, 50000, 'CASH', 100000, 50000, 'COMPLETED', '2026-09-10 19:40:31', '2026-09-10 19:43:17'),
 	(4, 1, 50000, 'QRIS', NULL, NULL, 'COMPLETED', '2026-09-10 19:43:33', '2026-09-10 19:44:01'),
 	(5, 1, 100000, 'QRIS', NULL, NULL, 'COMPLETED', '2026-09-10 19:44:19', '2026-09-10 19:51:37'),
-	(14, 1, 0, 'CASH', NULL, NULL, 'OPEN', '2026-09-13 08:08:19', '2026-09-13 08:08:19');
+	(15, 1, 65000, 'CASH', 100000, 35000, 'COMPLETED', '2026-09-15 20:16:47', '2026-09-15 20:17:05');
 
 -- Dumping structure for table pos_resta.produk
 CREATE TABLE IF NOT EXISTS `produk` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `jenis_id` bigint(20) unsigned DEFAULT NULL,
-  `foto` varchar(255) DEFAULT NULL,
-  `nama` varchar(255) NOT NULL,
-  `harga_beli` int(11) NOT NULL,
-  `harga_jual` int(11) NOT NULL,
-  `stok` int(11) NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `jenis_id` bigint unsigned DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `harga_beli` int NOT NULL,
+  `harga_jual` int NOT NULL,
+  `stok` int NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -212,7 +213,7 @@ INSERT INTO `produk` (`id`, `user_id`, `jenis_id`, `foto`, `nama`, `harga_beli`,
 	(6, 1, 1, 'produk/LTd0J4ZFEZoVKA5DOoZJlYxTo7YQSXWHVizUYMSm.jpg', 'Celana Begy Bunga', 50000, 75000, 10, 1, '2026-09-10 23:37:55', '2026-09-13 07:57:47', NULL),
 	(7, 1, 1, 'produk/QLpEbmB5y3VEeLQMVXiwmKKx2Ix1Qo2htWx2IxvA.jpg', 'Celana Begy Polkadot Pink', 50000, 75000, 10, 1, '2026-09-10 23:39:32', '2026-09-11 22:10:53', NULL),
 	(8, 1, 1, 'produk/4XvyUvC0Ow30X4IeHrcukOYP9cEkdEB2iMAgmj5M.jpg', 'Celana Begy Panda', 50000, 75000, 10, 1, '2026-09-10 23:42:45', '2026-09-11 22:14:52', NULL),
-	(9, 1, 2, 'produk/10zEgQhx592PJ4Hq39yWvB96YCNSi3cgtfuF5Sws.jpg', 'Cardigan Polkadot pink', 40000, 65000, 10, 1, '2026-09-10 23:48:57', '2026-09-11 22:17:08', NULL),
+	(9, 1, 2, 'produk/10zEgQhx592PJ4Hq39yWvB96YCNSi3cgtfuF5Sws.jpg', 'Cardigan Polkadot pink', 40000, 65000, 9, 1, '2026-09-10 23:48:57', '2026-09-15 20:16:50', NULL),
 	(10, 1, 2, 'produk/jAfJ3YzEN0PmkYR1b1rmXlId7v6cwim8pA0e9XVy.jpg', 'Sweater Stripe Pink', 45000, 70000, 10, 1, '2026-09-10 23:53:15', '2026-09-11 22:18:38', NULL),
 	(11, 1, 2, 'produk/slRuJSdsN27HMMZRpMgnmSLbFZJH5SJUSwR1GPyG.jpg', 'Kemeja Putih Rayon Motif', 65000, 85000, 6, 1, '2026-09-10 23:55:01', '2026-09-11 22:19:22', NULL),
 	(12, 1, 2, 'produk/D5fVO8cHPA5WeAyRQNxRmkl2OOHstiGqDssEktXw.jpg', 'Sweater Pink Bunga', 45000, 68000, 7, 1, '2026-09-10 23:57:02', '2026-09-11 22:20:33', NULL),
@@ -220,44 +221,44 @@ INSERT INTO `produk` (`id`, `user_id`, `jenis_id`, `foto`, `nama`, `harga_beli`,
 
 -- Dumping structure for table pos_resta.roles
 CREATE TABLE IF NOT EXISTS `roles` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pos_resta.roles: ~2 rows (approximately)
+-- Dumping data for table pos_resta.roles: ~0 rows (approximately)
 INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 'admin', '2026-09-10 19:00:19', '2026-09-10 19:00:19'),
 	(2, 'kasir', '2026-09-10 19:00:19', '2026-09-10 19:00:19');
 
 -- Dumping structure for table pos_resta.sessions
 CREATE TABLE IF NOT EXISTS `sessions` (
-  `id` varchar(255) NOT NULL,
-  `user_id` bigint(20) unsigned DEFAULT NULL,
-  `ip_address` varchar(45) DEFAULT NULL,
-  `user_agent` text DEFAULT NULL,
-  `payload` longtext NOT NULL,
-  `last_activity` int(11) NOT NULL,
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint unsigned DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sessions_user_id_index` (`user_id`),
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table pos_resta.sessions: ~1 rows (approximately)
+-- Dumping data for table pos_resta.sessions: ~0 rows (approximately)
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-	('Vk0TY83IAvL5PPr69UKkBflcgjtHPwOlqTV5eocZ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMHlsZUVWR0wwZDBmVm1uUWxNcUxvS0NCOXVhTTlDSURUYWlFaWpaUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO3M6NToicm91dGUiO3M6OToiZGFzaGJvYXJkIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1789312107);
+	('swfL8KQLfREQnazcIbv7A63AnQrUF8aZ0pp8Gacd', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT3IxeGVjQ2dSV1pqcDZuTXpHQWc0Y2l3N0k0NHpXVWp3TU1WdFd6RiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9kYXNoYm9hcmQiO3M6NToicm91dGUiO3M6OToiZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1789529338);
 
 -- Dumping structure for table pos_resta.users
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `role_id` bigint(20) unsigned NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `role_id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
