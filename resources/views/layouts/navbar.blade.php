@@ -17,29 +17,44 @@
         color: #4a3f35 !important;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 0;
+        margin-right: 20px;
+    }
+
+    .board-nav .navbar-brand .brand-badge-wrapper {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid #4a3f35;
+        overflow: hidden;
+        background: #fdf8f0;
+        flex-shrink: 0;
+        margin-right: 12px;
     }
 
     .board-nav .navbar-brand .brand-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: transparent;
-    font-size: 1.1rem;
-}
+        display: block;
+        width: 64px !important;
+        height: 64px !important;
+        max-width: 64px;
+        max-height: 64px;
+        object-fit: cover;
+        object-position: center;
+    }
 
     .board-nav .nav-link {
         font-size: 1rem;
         font-weight: 600;
         color: #8a7d72 !important;
         padding: 8px 4px !important;
-        margin: 0 12px;
+        margin: 0 8px;
         border-radius: 0;
         border-bottom: 2px solid transparent;
         transition: color 0.15s ease, border-color 0.15s ease;
+        white-space: nowrap;
     }
 
     .board-nav .nav-link:hover {
@@ -71,11 +86,13 @@
 </style>
 
 <nav class="navbar navbar-expand-lg board-nav">
-    <div class="container-fluid" style="max-width: 900px; margin: 0 auto;">
-       <a class="navbar-brand" href="#">
-    <img src="{{ asset('images/logo2.jpeg') }}" alt="Resta Thrift Logo" class="brand-badge" style="object-fit: cover;">
-    restathrift
-</a>
+    <div class="container-fluid" style="max-width: 1100px; margin: 0 auto;">
+        <a class="navbar-brand" href="#">
+            <span class="brand-badge-wrapper">
+                <img src="{{ asset('images/logo2.jpeg') }}" alt="Resta Thrift Logo" class="brand-badge">
+            </span>
+            restathrift
+        </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
@@ -114,9 +131,9 @@
                     <a class="nav-link {{ Request::is('penjualan*') ? 'active' : '' }}"
                         href="{{ route('penjualan.index') }}">Penjualan</a>
                 </li>
-        <li class="nav-item">
-    <a class="nav-link" href="{{ route('about') }}">Tentang</a>
-     </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('about') }}">Tentang</a>
+                </li>
 
             </ul>
 
